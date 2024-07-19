@@ -18,7 +18,7 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "memorystore": "^1.6.7",
-    "mysql": "^2.18.1",
+    "mysql2": "^3.10.3",
     "nodemon": "^3.1.4",
     "nunjucks": "^3.2.4",
     "passport": "^0.7.0",
