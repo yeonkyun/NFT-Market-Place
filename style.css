@@ -274,7 +274,7 @@ header.sticky {
 }
 
 /* update-section-css */
-.up-center-text h2{
+.up-center-text h2 {
     text-align: center;
     color: #111;
     font-size: 25px;
@@ -283,32 +283,32 @@ header.sticky {
     margin-bottom: 30p;
 }
 
-.cart img{
+.cart img {
     width: 380px;
     height: auto;
     border-radius: 5px;
 }
 
-.update-cart{
+.update-cart {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(380px, auto));
     gap: lrem;
 }
 
-.cart h5{
+.cart h5 {
     color: #636872;
     font-size: 14px;
     text-transform: capitalize;
     font-weight: 500;
 }
 
-.cart h4{
+.cart h4 {
     color: #111;
     font-size: 18px;
     font-weight: 600;
 }
 
-.cart p{
+.cart p {
     color: #707070;
     font-size: 15px;
     max-width: 380px;
@@ -316,8 +316,139 @@ header.sticky {
     margin-bottom: 12px;
 }
 
-.cart h6{
+.cart h6 {
     color: #151515;
     font-size: 14px;
     font-weight: 500;
+}
+
+/* contact-section */
+.contact {
+    background-color: #f3f4f6;
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 3rem;
+    align-items: start;
+    /* Align items to the start */
+}
+
+.contact-logo {
+    width: 100%;
+    /* Ensure the logo scales with the container */
+    max-width: 140px;
+    /* Maintain the width constraint */
+    height: auto;
+}
+
+.first-info {
+    width: 140px;
+    height: auto;
+}
+
+.second-info,
+.third-info,
+.fourth-info,
+.five {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Align to start for consistent height */
+}
+
+.contact-info h4 {
+    color: #212121;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    color: #565656;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: capitalize;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all .42s;
+}
+
+.contact-info p:hover {
+    columns: #EE1C47;
+}
+
+.social-icon i {
+    color: #565656;
+    margin-right: 10px;
+    font-size: 20px;
+    transform: all .42s;
+}
+
+.social-icon i:hover {
+    /* 커서 올려두면 아이콘 확대 */
+    transform: scale(1.3);
+}
+
+.end-text {
+    background-color: #edfff1;
+    text-align: center;
+    padding: 20px;
+}
+
+.end-text p {
+    color: #111;
+    text-transform: capitalize;
+}
+
+/* Responsive-css */
+@media(max-width:890px) {
+    header {
+        padding: 20px 3%;
+        transition: .4s;
+    }
+}
+
+@media(max-width:630px) {
+    .main-text h1 {
+        font-size: 50px;
+        transition: .4s;
+    }
+
+    .main-text p {
+        font-size: 18px;
+        transform: .4s;
+    }
+
+    .main-btn {
+        padding: 10px 20px;
+        transition: .4s;
+    }
+}
+
+@media(max-width:750px) {
+    .navmenu {
+        position: absolute;
+        top: 100%;
+        right: -100%;
+        width: 300px;
+        height: 130vh;
+        background: #edfff1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 120px 30px;
+        transition: all .42s;
+    }
+
+    .navmenu a {
+        display: block;
+        margin: 18px 0;
+    }
+
+    .navmenu.open {
+        right: 0;
+    }
 }
