@@ -80,7 +80,7 @@ section {
 .main-home {
     width: 100%;
     height: 100vh;
-    background-image: url(image/banner-3.png);
+    background-image: url(/image/banner-3.png);
     background-position: center;
     background-size: cover;
     display: grid;
