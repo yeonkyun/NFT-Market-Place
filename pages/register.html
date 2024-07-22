@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 페이지</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo"><img src="image/logo.png" alt="Logo"></a>
+
+        <ul class="navmenu">
+            <li><a class="nav-link" href="index.html">Home</a></li>
+            <li><a class="nav-link" href="shopping.html">Shop</a></li>
+            <li><a class="nav-link" href="#">Products</a></li>
+            <li><a class="nav-link" href="#">Page</a></li>
+            <li><a class="nav-link" href="#">Docs</a></li>
+        </ul>
+
+        <div class="nav-iocon">
+            <a href="#"><i class='bx bx-search'></i></a>
+            <a href="login.html"><i class='bx bx-user'></i></a>
+            <a href="#"><i class='bx bx-cart'></i></a>
+
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </div>
+    </header>
+
+    <section class="signup-section">
+        <div class="signup-form">
+            <h2>회원가입</h2>
+            <form class="register-body" action="register.php" method="post">
+                <div class="form-group">
+                    <label for="id">ID</label>
+                    <input type="text" id="id" name="id" required>
+                </div>
+                <div class="form-group">
+                    <label for="pw">Password</label>
+                    <input type="password" id="pw" name="pw" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="acc">Account</label>
+                    <input type="text" id="acc" name="acc" required>
+                </div>
+                <div class="form-group">
+                    <label for="phn">Phone Number</label>
+                    <input type="text" id="phn" name="phn" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg_date">Registration Date</label>
+                    <input type="date" id="reg_date" name="reg_date" required>
+                </div>
+                <div class="form-group">
+                    <a href="index.html" class="register-btn">Register</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
+    <script src="java.js"></script>
+</body>
+
+</html>
