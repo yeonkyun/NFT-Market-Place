@@ -452,3 +452,295 @@ header.sticky {
         right: 0;
     }
 }
+
+/* Login Page Styles */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f3f4f6;
+    padding: 0 10%;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.login-container h2 {
+    color: #111;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: #333;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #111;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #ee1c4e;
+}
+
+.register-link {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #ee1c4e;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* shopping */
+
+.shop-banner {
+    background-color: #f4f4f4;
+    padding: 50px 10%;
+    text-align: center;
+}
+
+.banner-text h1 {
+    margin-top: 100px;
+    color: #333;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.banner-text p {
+    color: #777;
+    font-size: 18px;
+}
+
+/* Filter Section */
+.filter {
+    padding: 20px 10%;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.filter h3 {
+    color: #111;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.filter-option {
+    margin-bottom: 15px;
+}
+
+.filter-option h4 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.filter-option select,
+.filter-option input[type="range"] {
+    width: 100%;
+}
+
+#priceValue {
+    text-align: center;
+    margin-top: 5px;
+    color: #111;
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 10%;
+}
+
+.product-card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s;
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.product-info h4 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    color: #777;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.product-info .rating {
+    margin-bottom: 10px;
+}
+
+.product-info .rating i {
+    color: #ff8c00;
+    font-size: 16px;
+}
+
+.product-info .btn {
+    background-color: #ee1c4e;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.product-info .btn:hover {
+    background-color: #d41e5a;
+}
+
+/* addProduct */
+
+.add-product-form {
+    margin-top: 100px;
+    padding: 50px 10%;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+}
+
+.add-product-form .container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.add-product-form h1 {
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.add-product-form label {
+    color: #555;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-product-form input,
+.add-product-form select,
+.add-product-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.add-product-form button.btn {
+    background-color: #ee1c4e;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.add-product-form button.btn:hover {
+    background-color: #d41e5a;
+}
+
+
+/* register.html */
+
+.signup-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.register-body {
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.register-body .form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-body .form-group label,
+.register-body .form-group input {
+    width: 100%;
+    max-width: 800px;
+}
+
+.register-body .form-group button:hover {
+    color: #d41e5a; 
+}
