@@ -530,7 +530,7 @@ header.sticky {
 }
 
 
-/* General Styles (Add to your existing CSS) */
+/* shopping */
 
 .shop-banner {
     background-color: #f4f4f4;
@@ -539,6 +539,7 @@ header.sticky {
 }
 
 .banner-text h1 {
+    margin-top: 100px;
     color: #333;
     font-size: 36px;
     margin-bottom: 10px;
@@ -650,6 +651,7 @@ header.sticky {
 /* addProduct */
 
 .add-product-form {
+    margin-top: 100px;
     padding: 50px 10%;
     background-color: #f4f4f4;
     display: flex;
