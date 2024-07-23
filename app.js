@@ -101,26 +101,48 @@ passport.use(
     )
 );
 
+//main page
 app.get('/', (req, res) => {
     res.render('index');
 });
 
+//login page
 app.get('/login', (req, res) => {
-    res.render('index', { center: 'login' });
+    res.render('login');
 })
 
-app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/loginfail'
-}))
+// app.post('/login', passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/loginfail'
+// }))
 
-app.get('/loginfail', (req, res) => {
-    res.render('index', { center: 'loginfail' });
+// app.get('/loginfail', (req, res) => {
+//     res.render('index', { center: 'loginfail' });
+// })
+
+// app.get('/logout', (req, res) => {
+//     req.session.destroy();
+//     res.redirect('/');
+// })
+
+//addProduct page
+app.get('/addProduct', (req, res) => {
+    res.render('addProduct');
 })
 
-app.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
+//index page
+app.get('/index', (req, res) => {
+    res.render('index');
+})
+
+//register page
+app.get('/register', (req, res) => {
+    res.render('register');
+})
+
+//shopping page
+app.get('/shopping', (req, res) => {
+    res.render('shopping');
 })
 
 app.get('/register', (req, res) => {
