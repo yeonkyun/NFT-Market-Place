@@ -233,94 +233,7 @@ header.sticky {
     font-weight: 600;
 }
 
-.client-reviews {
-    background-color: #f3f4f6;
-}
 
-.reviews {
-    text-align: center;
-}
-
-.reviews h3 {
-    color: #111;
-    font-size: 25px;
-    text-transform: capitalize;
-    text-align: center;
-    font-weight: 700;
-}
-
-.reviews img {
-    width: 100px;
-    height: auto;
-    border-radius: 50px;
-    margin: 10px 0;
-}
-
-.reviews p {
-    color: #707070;
-    font-size: 16px;
-    font-weight: 400;
-    font-weight: 400;
-    line-height: 25px;
-    margin-bottom: 10px;
-}
-
-.reviews h2 {
-    font-size: 22px;
-    color: #000;
-    font-weight: 400;
-    text-transform: capitalize;
-    margin-bottom: 2px;
-}
-
-/* update-section-css */
-.up-center-text h2 {
-    text-align: center;
-    color: #111;
-    font-size: 25px;
-    text-transform: capitalize;
-    font-weight: 700;
-    margin-bottom: 30p;
-}
-
-.cart img {
-    width: 380px;
-    height: auto;
-    border-radius: 5px;
-}
-
-.update-cart {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(380px, auto));
-    gap: lrem;
-}
-
-.cart h5 {
-    color: #636872;
-    font-size: 14px;
-    text-transform: capitalize;
-    font-weight: 500;
-}
-
-.cart h4 {
-    color: #111;
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.cart p {
-    color: #707070;
-    font-size: 15px;
-    max-width: 380px;
-    line-height: 25px;
-    margin-bottom: 12px;
-}
-
-.cart h6 {
-    color: #151515;
-    font-size: 14px;
-    font-weight: 500;
-}
 
 /* contact-section */
 .contact {
@@ -393,13 +306,13 @@ header.sticky {
 }
 
 .end-text {
-    background-color: #edfff1;
+    background-color: #758694;
     text-align: center;
     padding: 20px;
 }
 
 .end-text p {
-    color: #111;
+    color: #ffffff;
     text-transform: capitalize;
 }
 
