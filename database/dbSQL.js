@@ -1,5 +1,3 @@
-// queries.js
-
 const queries = {
     // Users 테이블 쿼리
     createUser: `
