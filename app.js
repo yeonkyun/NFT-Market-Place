@@ -147,7 +147,7 @@ passport.use(
 
 //main page
 app.get('/', (req, res) => {
-    res.render('administator/index');
+    res.render('');
 });
 
 //login page
@@ -246,6 +246,9 @@ app.post('/nftitem', upload.single('image'), async (req, res) => {
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
 });
+
+const administrator = require('./routes/administrator');
+app.use('/administrator', administrator);
 
 app.listen(port, () => {
     console.log(`Server start port: ${port}`);
