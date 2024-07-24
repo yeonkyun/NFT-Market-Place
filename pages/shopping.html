@@ -43,60 +43,91 @@
         </div>
     </section>
 
-    <section class="shop-products">
-        <div class="product-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <img src="images/1.jpg" alt="Product Image">
-                <div class="product-info">
-                    <h4>Half Running Set</h4>
-                    <p>$99 ~ $129</p>
-                    <div class="rating">
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                    </div>
-                    <a href="#" class="btn">View Details</a>
-                </div>
-            </div>
+    <!-- 유저 프로필 -->
+    <section class="profile-products">
+        <div class="profile-section" style="text-align: center;">
+            <h2>User Profile</h2>
+            {% if loginid %}
+            <p>Welcome, {{ username }}!</p>
+            <p>Email: {{ email }}</p>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="/myinfo?id={{ loginid }}">{{ loginid }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">LogOut</a>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
 
-            <!-- Product 2 -->
-            <div class="product-card">
-                <img src="images/2.jpg" alt="Product Image">
-                <div class="product-info">
-                    <h4>Formal Men Lowers</h4>
-                    <p>$99 ~ $129</p>
-                    <div class="rating">
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                    </div>
-                    <a href="#" class="btn">View Details</a>
-                </div>
-            </div>
 
-            <!-- Product 3 -->
-            <div class="product-card">
-                <img src="images/3.jpg" alt="Product Image">
-                <div class="product-info">
-                    <h4>Half Running Suit</h4>
-                    <p>$99 ~ $129</p>
-                    <div class="rating">
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
-                        <i class='bx bx-star'></i>
+        <!-- Added Products Section -->
+        <div class="added-products">
+            <h2>Added Products</h2>
+            <div class="product-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <img src="images/1.jpg" alt="Product Image">
+                    <div class="product-info">
+                        <h4>Half Running Set</h4>
+                        <p>$99 ~ $129</p>
+                        <div class="rating">
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                        </div>
+                        <a href="#" class="btn">View Details</a>
                     </div>
-                    <a href="#" class="btn">View Details</a>
                 </div>
-            </div>
 
-            <!-- More products as needed -->
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <img src="image/2.jpg" alt="Product Image">
+                    <div class="product-info">
+                        <h4>Formal Men Lowers</h4>
+                        <p>$99 ~ $129</p>
+                        <div class="rating">
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                        </div>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <img src="images/3.jpg" alt="Product Image">
+                    <div class="product-info">
+                        <h4>Half Running Suit</h4>
+                        <p>$99 ~ $129</p>
+                        <div class="rating">
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                            <i class='bx bx-star'></i>
+                        </div>
+                        <a href="#" class="btn">View Details</a>
+                    </div>
+                </div>
+
+                <!-- More products as needed -->
+            </div>
         </div>
     </section>
 

@@ -80,7 +80,7 @@ section {
 .main-home {
     width: 100%;
     height: 100vh;
-    background-image: url(/image/banner-3.png);
+    background-image: url(/images/banner-3.png);
     background-position: center;
     background-size: cover;
     display: grid;
@@ -656,4 +656,77 @@ header.sticky {
 
 .register-body .form-group button:hover {
     color: #d41e5a; 
+}
+
+/* 유저 프로필 css */
+.profile-products {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.profile-section {
+    flex: 0.3; 
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    margin-right: 40px;
+}
+
+.added-products {
+    flex: 2.7;  
+}
+
+
+.profile-section h2 {
+    margin-top: 0;
+}
+
+.added-products h2 {
+    margin-top: 0;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 50px;
+}
+
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 220px;  /* 상품 카드의 가로 크기를 220px로 설정 */
+    height: 260px;  /* 상품 카드의 세로 크기를 260px로 증가 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;  /* 각 상품 카드 사이의 간격 */
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.product-card img {
+    width: 100%;  /* 이미지가 카드 너비에 맞게 조정 */
+    height: 100px;  /* 이미지의 높이를 100px로 설정 */
+    object-fit: cover;  /* 이미지가 비율을 유지하며 영역을 채움 */
+    flex-shrink: 0;  /* 이미지가 축소되지 않도록 설정 */
+}
+
+
+.product-info {
+    padding: 10px;
+    text-align: center;
+    flex-grow: 1;  /* 남은 공간을 모두 채우도록 설정 */
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
 }
