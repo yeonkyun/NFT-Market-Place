@@ -200,6 +200,28 @@ app.get('/shopping', async (req, res) => {
         res.status(500).send('Database error');
     }
 });
+app.get('/itemdetail', async (req, res) => {
+    const itemId = req.query.id; // 쿼리 파라미터에서 아이템 ID를 가져옵니다
+    if (!itemId) {
+        return res.status(400).send('Item ID is required'); // 아이템 ID가 없는 경우 400 에러를 반환합니다
+    }
+
+    try {
+        console.log('Executing query:', dbSQL.getNftItemById);
+        const result = await queryDatabase(dbSQL.getNftItemById, [itemId]);
+        console.log('Query result:', result);
+
+        if (result.length > 0) {
+            const itemInfo = result[0];
+            res.render('itemdetail', { iteminfo: itemInfo }); // 템플릿에 데이터를 전달합니다
+        } else {
+            res.status(404).send('Item not found'); // 아이템이 없는 경우 404 에러를 반환합니다
+        }
+    } catch (e) {
+        console.error('Error fetching item details', e);
+        res.status(500).send('Database error'); // 에러 발생 시 500 에러를 반환합니다
+    }
+});
 // 회원가입
 app.post('/registerimpl', async (req, res) => {
     // 입력값 받기

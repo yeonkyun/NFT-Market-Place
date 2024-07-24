@@ -83,9 +83,7 @@
                     <img class="item_img" src="images/{{data.contents}}">
                     <div class="product-info">
                         <h4>{{ data.name }}</h4>
-                        <p>{{ data.contents }}</p>
                         <p>{{ data.price }}</p>
-                        <p>등록일: {{ data.reg_date }}</p>
                         <div class="rating">
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
@@ -93,7 +91,7 @@
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
                         </div>
-                        <a href="#" class="btn">View Details</a>
+                        <a href="/itemdetail?id={{ data.id }}" class="btn">View Details</a>
                     </div>
                 </div>
                 {% endfor %}
