@@ -15,6 +15,10 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+      <!-- web3.js를 script에 추가하였다. -->
+  <script type="text/javascript" src="js/bignumber.min.js"></script>
+  <script type="text/javascript" src="js/web3.js"></script>
 </head>
 
 <body>
@@ -47,19 +51,32 @@
     <section class="profile-products">
         <div class="profile-section" style="text-align: center;">
             <h2>User Profile</h2>
-            {% if loginid %}
-            <p>Welcome, {{ username }}!</p>
-            <p>Email: {{ email }}</p>
+            {% if user_id %}
+            <p>Welcome, {{ user_name }}!</p> <!--로그인 시 띄우는 정보-->
+            <p id="eth"></p> 
             <ul class="nav justify-content-end">
                 <li class="nav-item">
-                    <a class="nav-link" href="/myinfo?id={{ loginid }}">{{ loginid }}</a>
+                    <a class="nav-link" href="/myinfo?id={{ user_id }}">{{ user_id }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">LogOut</a>
                 </li>
             </ul>
+            <br>
+            <script>
+                function MyETH() {
+                    const web3 = new Web3(new Web3.providers.HttpProvider("HTTP://210.119.34.24:7545"));
+
+                    const balance = web3.fromWei(web3.eth.getBalance(`{{user_acc}}`)).toNumber().toFixed(2);
+                    $('#eth').text(`${balance} ETH`);
+                }
+
+                $(document).ready(function () {
+                    if (`{{user_acc}}`) MyETH();
+                });
+            </script>
             {% else %}
-            <ul class="nav justify-content-end">
+            <ul class="nav justify-content-end"> <!--로그인 아닐 시 띄우는 정보-->
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Login</a>
                 </li>

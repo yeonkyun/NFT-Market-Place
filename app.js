@@ -65,6 +65,7 @@ app.use(passport.session());
 app.use((req, res, next) => {
     res.locals.user_id = req.user ? req.user.id : null;
     res.locals.user_name = req.user ? req.user.name : null;
+    res.locals.user_acc = req.user ? req.user.acc : null;
     next();
 });
 
@@ -92,7 +93,6 @@ passport.deserializeUser(function (req, user, done) {
 app.get('/loginfail', (req, res) => {
     res.render('loginfail', { message: '로그인에 실패했습니다. 다시 시도해 주세요.' });
 });
-
 
 
 // local login 전략을 세우는 함수
@@ -147,7 +147,7 @@ passport.use(
 
 //main page
 app.get('/', (req, res) => {
-    res.render('');
+    res.render('index');
 });
 
 //login page
@@ -157,7 +157,7 @@ app.get('/login', (req, res) => {
 
 // 로그인 라우트
 app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/shopping', //로그인 후 이동
     failureRedirect: '/loginfail'
 }))
 
@@ -192,6 +192,7 @@ app.get('/register', (req, res) => {
 app.get('/shopping', (req, res) => {
     res.render('shopping');
 })
+
 // 회원가입
 app.post('/registerimpl', async (req, res) => {
     // 입력값 받기
@@ -247,8 +248,8 @@ app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
 });
 
-const administrator = require('./routes/administrator');
-app.use('/administrator', administrator);
+// const administrator = require('./routes/administrator');
+// app.use('/administrator', administrator);
 
 app.listen(port, () => {
     console.log(`Server start port: ${port}`);
