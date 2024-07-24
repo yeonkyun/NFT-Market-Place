@@ -18,6 +18,7 @@ nunjucks.configure('pages', {
 // Database 연동
 var dbConnect = require('./database/dbConnect');
 var dbSQL = require('./database/dbSQL');
+const queries = require('./database/dbSQL');
 
 app.use(
     session({
@@ -48,45 +49,23 @@ app.use((req, res, next) => {
 
 // login이 최초로 성공했을 때만 호출되는 함수
 // done(null, user.id)로 세션을 초기화 한다.
-// passport.serializeUser(function (req, user, done) {
-//     console.log('serializeUser' + user);
-//     console.log('serializeUser' + user.id);
-//     console.log('serializeUser' + user.name);
-//     console.log('serializeUser' + user.acc);
+passport.serializeUser(function (req, user, done) {
+    console.log('serializeUser' + user);
+    console.log('serializeUser' + user.id);
+    console.log('serializeUser' + user.name);
+    console.log('serializeUser' + user.acc);
 
-//     done(null, user);
-// });
-
-passport.serializeUser((user, done) => {
-    console.log('serializeUser:', user);
-    // 일반적으로 id만 저장
-    done(null, user.id);
+    done(null, user);
 });
+
 
 // 사용자가 페이지를 방문할 때마다 호출되는 함수
 // done(null, id)로 사용자의 정보를 각 request의 user 변수에 넣어준다.
-// passport.deserializeUser(function (req, user, done) {
-//     console.log('Login: ' + user.name);
-//     done(null, user);
-// });
-passport.deserializeUser(async (id, done) => {
-    try {
-        // 사용자 id로 DB에서 사용자 정보 조회
-        const conn = await dbConnect.getConnection();
-        const [rows] = await conn.query(db_sql.cust_select_one, [id]);
-        conn.release(); // 커넥션 반납
-        
-        if (rows.length > 0) {
-            // 사용자 정보가 존재하면 done 호출
-            done(null, rows[0]);
-        } else {
-            // 사용자 정보가 없으면 done 호출
-            done(new Error('User not found'), null);
-        }
-    } catch (err) {
-        done(err);
-    }
+passport.deserializeUser(function (req, user, done) {
+    console.log('Login: ' + user.name);
+    done(null, user);
 });
+
 
 // 로그인 실패 시 표시할 페이지
 app.get('/loginfail', (req, res) => {
@@ -102,40 +81,48 @@ app.get('/loginfail', (req, res) => {
 // 위에서 만든 login 함수로 id, pw가 유효한지 검출
 // 여기서 로그인에 성공하면 위의 passport.serializeUser 함수로 이동
 
+// const LocalStrategy = require('passport-local').Strategy;
+// const dbConnect = require('./dbConnect'); // dbConnect 모듈을 적절히 설정해 주세요
+
 passport.use(
     new LocalStrategy(
         {
-            usernameField: "id",
-            passwordField: "pwd",
+            usernameField: 'id',
+            passwordField: 'password'
         },
-        function (userid, password, done) {
+        async function (userid, password, done) {
             console.log('--------------------------' + userid);
             console.log('--------------------------' + password);
 
-            conn = dbConnect.getConnection();
-            conn.query(db_sql.cust_select_one, [userid], (err, row, fields) => {
+            try {
+                // 사용자 정보를 조회하는 쿼리
+                const result = await dbConnect.queryDatabase(queries.getUserById, [userid]);
 
-                if (err) throw err;
-
-                let result = 0;
-                console.log('--------------------------' + row[0]['pwd']);
-
-                let name = row[0]['name'];
-                let acc = row[0]['acc'];
-
-                if (row[0] == undefined) {
-                    return done(null, false, { message: "Login Fail " });
-                } else if (row[0]['pwd'] != password) {
-                    return done(null, false, { message: "Login Fail " });
-                } else {
-                    return done(null, { id: userid, name: name, acc: acc });
+                // 사용자 존재 확인
+                if (result.length === 0) {
+                    return done(null, false, { message: 'Login Fail: User not found' });
                 }
 
-            });
+                const user = result[0];
+                console.log('--------------------------' + user.pw);
 
+                // 비밀번호 확인
+                if (user.pw !== password) {
+                    return done(null, false, { message: 'Login Fail: Incorrect password' });
+                }
+
+                // 로그인 성공
+                return done(null, { id: userid, name: user.name, acc: user.acc });
+                
+            } catch (err) {
+                // 에러 처리
+                console.error('Database error:', err);
+                return done(err);
+            }
         }
     )
 );
+
 
 //main page
 app.get('/', (req, res) => {
