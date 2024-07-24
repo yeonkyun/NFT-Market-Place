@@ -103,7 +103,7 @@ passport.use(
 
 //main page
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('administator/index');
 });
 
 //login page
