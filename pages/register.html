@@ -11,42 +11,93 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+    <style>
+        .signup-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .signup-form {
+            width: 100%;
+            max-width: 900px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .register-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            background: #0056b3;
+        }
+
+        .banner-img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 
 <body>
     <header>
-        <a href="index.html" class="logo"><img src="image/logo.png" alt="Logo"></a>
-
-        <ul class="navmenu">
-            <li><a class="nav-link" href="/index">Home</a></li>
-            <li><a class="nav-link" href="/shopping">Shop</a></li>
-            <li><a class="nav-link" href="/addProduct">Add products</a></li>
-        </ul>
-
-        <div class="nav-iocon">
-            <a href="#"><i class='bx bx-search'></i></a>
-            <a href="/login"><i class='bx bx-user'></i></a>
-            <a href="#"><i class='bx bx-cart'></i></a>
-
-            <div class="bx bx-menu" id="menu-icon"></div>
-        </div>
+        <a href="/index" class="logo"><img src="image/logo.png" alt="Logo"></a>
     </header>
 
     <section class="signup-section">
+        <img src="images/banner-3.png" alt="Banner" class="banner-img">
         <div class="signup-form">
             <h2>회원가입</h2>
-            <form class="register-body" action="register.php" method="post">
+            <form class="register-body" action="/registerimpl" method="post">
                 <div class="form-group">
                     <label for="id">ID</label>
                     <input type="text" id="id" name="id" required>
                 </div>
                 <div class="form-group">
                     <label for="pw">Password</label>
-                    <input type="password" id="pw" name="pw" required>
+                    <input type="password" id="pw" name="pwd" required>
                 </div>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="nickname">Nickname</label>
+                    <input type="text" id="nickname" name="nickname" required>
                 </div>
                 <div class="form-group">
                     <label for="acc">Account</label>
@@ -61,14 +112,25 @@
                     <input type="date" id="reg_date" name="reg_date" required>
                 </div>
                 <div class="form-group">
-                    <a href="index.html" class="register-btn">Register</a>
+                    <label for="user_type">User Type</label>
+                    <select id="user_type" name="user_type">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <a href="#" class="register-btn" onclick="submitForm()">Register</a>
                 </div>
             </form>
         </div>
     </section>
 
     <!-- JavaScript -->
-    <script src="java.js"></script>
+    <script>
+        function submitForm() {
+            document.querySelector('.register-body').submit();
+        }
+    </script>
 </body>
 
 </html>

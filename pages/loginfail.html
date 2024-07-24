@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 실패</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            color: #dc3545;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>로그인 실패</h1>
+        <p>로그인에 실패했습니다. 다시 시도해 주세요.</p>
+        <script>
+            // 로그인 실패 알림을 표시하고 홈 페이지로 리다이렉트
+            alert('로그인에 실패했습니다. 다시 시도해 주세요.');
+            window.location.href = '/login'; // 로그인 페이지로 리다이렉트
+        </script>
+    </div>
+</body>
+
+</html>

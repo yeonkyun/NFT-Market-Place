@@ -22,8 +22,8 @@ const queries = {
 
     // NFT Item 테이블 쿼리
     createNftItem: `
-      INSERT INTO nft_item (name, contents, price, reg_date)
-      VALUES (?, ?, ?, NOW())
+      INSERT INTO nft_item (id, name, contents, price, reg_date)
+      VALUES (0, ?, ?, ?, NOW())
     `,
     getNftItemById: `
       SELECT * FROM nft_item WHERE id = ?
