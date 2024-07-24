@@ -103,7 +103,7 @@ passport.use(
 
 //main page
 app.get('/', (req, res) => {
-    res.render('administator/index');
+    res.render('');
 });
 
 //login page
@@ -161,6 +161,9 @@ app.get('/register', (req, res) => {
             dbConnect.close(conn);
         }
     })
+
+const administrator = require('./routes/administrator');
+app.use('/administrator', administrator);
 
 app.listen(port, () => {
     console.log(`Server start port: ${port}`);
