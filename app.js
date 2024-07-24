@@ -48,21 +48,52 @@ app.use((req, res, next) => {
 
 // login이 최초로 성공했을 때만 호출되는 함수
 // done(null, user.id)로 세션을 초기화 한다.
-passport.serializeUser(function (req, user, done) {
-    console.log('serializeUser' + user);
-    console.log('serializeUser' + user.id);
-    console.log('serializeUser' + user.name);
-    console.log('serializeUser' + user.acc);
+// passport.serializeUser(function (req, user, done) {
+//     console.log('serializeUser' + user);
+//     console.log('serializeUser' + user.id);
+//     console.log('serializeUser' + user.name);
+//     console.log('serializeUser' + user.acc);
 
-    done(null, user);
+//     done(null, user);
+// });
+
+passport.serializeUser((user, done) => {
+    console.log('serializeUser:', user);
+    // 일반적으로 id만 저장
+    done(null, user.id);
 });
 
 // 사용자가 페이지를 방문할 때마다 호출되는 함수
 // done(null, id)로 사용자의 정보를 각 request의 user 변수에 넣어준다.
-passport.deserializeUser(function (req, user, done) {
-    console.log('Login: ' + user.name);
-    done(null, user);
+// passport.deserializeUser(function (req, user, done) {
+//     console.log('Login: ' + user.name);
+//     done(null, user);
+// });
+passport.deserializeUser(async (id, done) => {
+    try {
+        // 사용자 id로 DB에서 사용자 정보 조회
+        const conn = await dbConnect.getConnection();
+        const [rows] = await conn.query(db_sql.cust_select_one, [id]);
+        conn.release(); // 커넥션 반납
+        
+        if (rows.length > 0) {
+            // 사용자 정보가 존재하면 done 호출
+            done(null, rows[0]);
+        } else {
+            // 사용자 정보가 없으면 done 호출
+            done(new Error('User not found'), null);
+        }
+    } catch (err) {
+        done(err);
+    }
 });
+
+// 로그인 실패 시 표시할 페이지
+app.get('/loginfail', (req, res) => {
+    res.render('loginfail', { message: '로그인에 실패했습니다. 다시 시도해 주세요.' });
+});
+
+
 
 // local login 전략을 세우는 함수
 // client에서 전송되는 변수의 이름이 각각 id, pw이므로 
@@ -116,21 +147,24 @@ app.get('/login', (req, res) => {
     res.render('login');
 })
 
-
-// app.post('/login', passport.authenticate('local', {
-//     successRedirect: '/',
-//     failureRedirect: '/loginfail'
-// }))
+// 로그인 라우트
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/loginfail'
+}))
 
 // app.get('/loginfail', (req, res) => {
 //     res.render('index', { center: 'loginfail' });
 // })
 
-// app.get('/logout', (req, res) => {
-//     req.session.destroy();
-//     res.redirect('/');
-// })
-
+//로그아웃
+app.get('/logout', (req, res) => {
+    req.logout(err => {
+        if (err) return next(err);
+        req.session.destroy();
+        res.redirect('/');
+    });
+});
 //addProduct page
 app.get('/addProduct', (req, res) => {
     res.render('addProduct');
@@ -150,6 +184,7 @@ app.get('/register', (req, res) => {
 app.get('/shopping', (req, res) => {
     res.render('shopping');
 })
+// 회원가입
 app.post('/registerimpl', async (req, res) => {
     // 입력값 받기
     let id = req.body.id;
