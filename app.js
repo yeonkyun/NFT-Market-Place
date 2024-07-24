@@ -14,6 +14,27 @@ const { queryDatabase } = require('./database/dbConnect');
 nunjucks.configure('pages', {
     express: app,
 })
+// Multer 사용
+const multer  = require('multer')
+const limits = {
+    fieldNameSize: 200, // 필드명 사이즈 최대값 (기본값 100bytes)
+    filedSize: 1024 * 1024, // 필드 사이즈 값 설정 (기본값 1MB)
+    fields: 2, // 파일 형식이 아닌 필드의 최대 개수 (기본 값 무제한)
+    fileSize : 16777216, //multipart 형식 폼에서 최대 파일 사이즈(bytes) "16MB 설정" (기본 값 무제한)
+    files : 10, //multipart 형식 폼에서 파일 필드 최대 개수 (기본 값 무제한)
+}
+// 파일 경로 및 이름 설정 옵션
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/images') // 파일 업로드 경로
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname) //파일 이름 설정
+    }
+  })
+const upload = multer({ 
+    storage: storage
+}) 
 
 // Database 연동
 var dbConnect = require('./database/dbConnect');
@@ -198,6 +219,29 @@ app.post('/registerimpl', async (req, res) => {
         res.status(500).send('Database error');
     }
 });
+// nft_item 등록
+app.post('/nftitem', upload.single('image'), async (req, res) => {
+    // 입력값 받기
+    let name = req.body.name;
+    const { originalname } = req.file;
+    let price = parseFloat(req.body.price); // 가격은 숫자 형태로 변환
+    // 값이 제대로 전송되었는지 확인
+    console.log(`input data ${name}, ${originalname}, ${price}`);
+
+    let values = [name, originalname, price];
+
+    try {
+        // 쿼리 실행
+        await queryDatabase(dbSQL.createNftItem, values);
+        console.log('Insert OK!');
+        res.render('addproductok', { name });
+    } catch (e) {
+        console.log('Insert Error');
+        console.log(e);
+        res.status(500).send('Database error');
+    }
+});
+
 
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');

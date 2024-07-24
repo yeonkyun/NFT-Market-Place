@@ -18,7 +18,7 @@
 
 <body>
     <header>
-        <a href="index.html" class="logo"><img src="image/logo.png" alt="Logo"></a>
+        <a href="/index" class="logo"><img src="images/logo.png" alt="Logo"></a>
 
         <ul class="navmenu">
             <li><a href="/index">home</a></li>
@@ -38,29 +38,33 @@
     <section class="add-product-form">
         <div class="container">
             <h1>Add New Product</h1>
-            <form action="submit-product.php" method="POST" enctype="multipart/form-data">
-                <label for="productName">Product Name:</label>
-                <input type="text" id="productName" name="productName" required>
+            <form action="/nftitem" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="name">Product Name:</label>
+                  <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                </div>
+                <div class="form-group">
+                    <label for="image">Contents:</label>
+                    <input type="file" class="form-control" id="image" placeholder="Enter contents" name="image">
+                  </div>
+                <div class="form-group">
+                  <label for="price">Price:</label>
+                  <input type="number" class="form-control" id="price" placeholder="Enter price" name="price">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Product</button>
+              </form>
+            <!-- <form action="/nftitem" method="POST" enctype="multipart/form-data">
+                <label for="name">Product Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="contents">Contents:</label>
+                <input type="file" id="contents" name="contents" accept="image/*" required>
 
-                <label for="productCategory">Category:</label>
-                <select id="productCategory" name="productCategory" required>
-                    <option value="men">Men</option>
-                    <option value="women">Women</option>
-                    <option value="kids">Kids</option>
-                    <option value="furniture">Furniture</option>
-                </select>
-
-                <label for="productPrice">Price:</label>
-                <input type="number" id="productPrice" name="productPrice" step="0.01" required>
-
-                <label for="productDescription">Description:</label>
-                <textarea id="productDescription" name="productDescription" rows="4" required></textarea>
-
-                <label for="productImage">Product Image:</label>
-                <input type="file" id="productImage" name="productImage" accept="image/*" required>
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" step="0.01" required>
 
                 <button type="submit" class="btn">Add Product</button>
-            </form>
+            </form> --> 
         </div>
     </section>
 
