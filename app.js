@@ -10,10 +10,14 @@ const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.SERVER_PORT || 3000;
-
+const { queryDatabase } = require('./database/dbConnect');
 nunjucks.configure('pages', {
     express: app,
 })
+
+// Database 연동
+var dbConnect = require('./database/dbConnect');
+var dbSQL = require('./database/dbSQL');
 
 app.use(
     session({
@@ -35,6 +39,7 @@ app.use(express.static('public'));
 app.use(passport.initialize());
 app.use(passport.session());
 
+//로그인 유지 부분
 app.use((req, res, next) => {
     res.locals.user_id = req.user ? req.user.id : null;
     res.locals.user_name = req.user ? req.user.name : null;
@@ -111,6 +116,7 @@ app.get('/login', (req, res) => {
     res.render('login');
 })
 
+
 // app.post('/login', passport.authenticate('local', {
 //     successRedirect: '/',
 //     failureRedirect: '/loginfail'
@@ -144,23 +150,36 @@ app.get('/register', (req, res) => {
 app.get('/shopping', (req, res) => {
     res.render('shopping');
 })
+app.post('/registerimpl', async (req, res) => {
+    // 입력값 받기
+    let id = req.body.id;
+    let pwd = req.body.pwd;
+    let name = req.body.name;
+    let nickname = req.body.nickname;
+    let acc = req.body.acc;
+    let phn = req.body.phn;
+    let reg_date = req.body.reg_date;
+    let user_type = req.body.user_type || 'user'; // user_type 기본값 설정
 
-app.get('/register', (req, res) => {
-    res.render('index', { center: 'register' });
-})
-    .post('/registerimpl', (req, res) => {
-        conn = dbConnect.getConnection();
+    console.log(id + ' ' + pwd + ' ' + name + ' ' + nickname + ' ' + acc + ' ' + phn + ' ' + reg_date);
 
-        try {
-            conn.query(db_sql.cust_insert, [req.body.id, req.body.pwd, req.body.name, req.body.acc], (err, result, fields) => {
-                res.render('index', { center: 'registerok', name: req.body.name });
-            });
-        } catch (err) {
-            console.log(err);
-        } finally {
-            dbConnect.close(conn);
-        }
-    })
+    // DB에 입력하고 center에 회원가입을 축하합니다. 출력
+    let values = [id, pwd, name, nickname, acc, phn, reg_date, user_type];
+
+    try {
+        await queryDatabase(dbSQL.createUser, values);
+        console.log('Insert OK!');
+        res.render('registerok', { name });
+    } catch (e) {
+        console.log('Insert Error');
+        console.log(e);
+        res.status(500).send('Database error');
+    }
+});
+
+app.listen(3000, () => {
+    console.log('Server started on http://localhost:3000');
+});
 
 app.listen(port, () => {
     console.log(`Server start port: ${port}`);
