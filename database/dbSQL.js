@@ -25,6 +25,9 @@ const queries = {
       INSERT INTO nft_item (id, name, contents, price, reg_date)
       VALUES (0, ?, ?, ?, NOW())
     `,
+    getNftItem: `
+    SELECT * FROM nft_item
+    `,
     getNftItemById: `
       SELECT * FROM nft_item WHERE id = ?
     `,

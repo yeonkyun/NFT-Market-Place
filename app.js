@@ -10,7 +10,7 @@ const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.SERVER_PORT || 3000;
-const { queryDatabase } = require('./database/dbConnect');
+
 nunjucks.configure('pages', {
     express: app,
 })
@@ -37,9 +37,8 @@ const upload = multer({
 }) 
 
 // Database 연동
-var dbConnect = require('./database/dbConnect');
+const { queryDatabase } = require('./database/dbConnect');
 var dbSQL = require('./database/dbSQL');
-const queries = require('./database/dbSQL');
 
 app.use(
     session({
@@ -147,7 +146,7 @@ passport.use(
 
 //main page
 app.get('/', (req, res) => {
-    res.render('');
+    res.render('index');
 });
 
 //login page
@@ -189,9 +188,18 @@ app.get('/register', (req, res) => {
 })
 
 //shopping page
-app.get('/shopping', (req, res) => {
-    res.render('shopping');
-})
+app.get('/shopping', async (req, res) => {
+    try {
+        console.log('Executing query:', dbSQL.getNftItem);
+        const result = await queryDatabase(dbSQL.getNftItem);
+        console.log('Query result:', result);
+
+        res.render('shopping', { datas: result });
+    } catch (e) {
+        console.error('Error fetching NFT items', e);
+        res.status(500).send('Database error');
+    }
+});
 // 회원가입
 app.post('/registerimpl', async (req, res) => {
     // 입력값 받기
@@ -247,8 +255,8 @@ app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
 });
 
-const administrator = require('./routes/administrator');
-app.use('/administrator', administrator);
+// const administrator = require('./routes/administrator');
+// app.use('/administrator', administrator);
 
 app.listen(port, () => {
     console.log(`Server start port: ${port}`);

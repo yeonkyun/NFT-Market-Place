@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
 
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,11 +78,14 @@
             <h2>Added Products</h2>
             <div class="product-grid">
                 <!-- Product 1 -->
+                {% for data in datas %}
                 <div class="product-card">
-                    <img src="images/1.jpg" alt="Product Image">
+                    <img class="item_img" src="images/{{data.contents}}">
                     <div class="product-info">
-                        <h4>Half Running Set</h4>
-                        <p>$99 ~ $129</p>
+                        <h4>{{ data.name }}</h4>
+                        <p>{{ data.contents }}</p>
+                        <p>{{ data.price }}</p>
+                        <p>등록일: {{ data.reg_date }}</p>
                         <div class="rating">
                             <i class='bx bx-star'></i>
                             <i class='bx bx-star'></i>
@@ -91,40 +96,7 @@
                         <a href="#" class="btn">View Details</a>
                     </div>
                 </div>
-
-                <!-- Product 2 -->
-                <div class="product-card">
-                    <img src="image/2.jpg" alt="Product Image">
-                    <div class="product-info">
-                        <h4>Formal Men Lowers</h4>
-                        <p>$99 ~ $129</p>
-                        <div class="rating">
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                        </div>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-card">
-                    <img src="images/3.jpg" alt="Product Image">
-                    <div class="product-info">
-                        <h4>Half Running Suit</h4>
-                        <p>$99 ~ $129</p>
-                        <div class="rating">
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                        </div>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
+                {% endfor %}
 
                 <!-- More products as needed -->
             </div>
