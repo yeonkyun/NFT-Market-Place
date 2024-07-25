@@ -9,7 +9,7 @@ const queries = {
     `,
     updateUser: `
       UPDATE users
-      SET pw = ?, name = ?, nickname = ?, acc = ?, phn = ?, user_type = ?
+      SET pw = ?, name = ?, nickname = ?, acc = ?, phn = ?
       WHERE id = ?
     `,
     deleteUser: `

@@ -16,9 +16,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-      <!-- web3.js를 script에 추가하였다. -->
-  <script type="text/javascript" src="js/bignumber.min.js"></script>
-  <script type="text/javascript" src="js/web3.js"></script>
+    <!-- web3.js를 script에 추가하였다. -->
+    <script type="text/javascript" src="js/bignumber.min.js"></script>
+    <script type="text/javascript" src="js/web3.js"></script>
 </head>
 
 <body>
@@ -46,108 +46,111 @@
             <p>Find the best deals and latest trends.</p>
         </div>
     </section>
+    <!-- 프로필 영역 -->
+    <div class="col"></div>
+    <div class="col-sm-8">
+        <!-- 유저 프로필 -->
+        <section class="profile-products">
+            <div class="profile-section" style="text-align: center;">
+                <h2>User Profile</h2>
+                {% if user_id %}
+                <p>Welcome, {{ user_name }}!</p> <!--로그인 시 띄우는 정보-->
+                <p id="eth"></p>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/myinfo?id={{ user_id }}">{{ user_id }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">LogOut</a>
+                    </li>
+                </ul>
+                <br>
+                <script>
+                    function MyETH() {
+                        const web3 = new Web3(new Web3.providers.HttpProvider("HTTP://210.119.34.24:7545"));
 
-    <!-- 유저 프로필 -->
-    <section class="profile-products">
-        <div class="profile-section" style="text-align: center;">
-            <h2>User Profile</h2>
-            {% if user_id %}
-            <p>Welcome, {{ user_name }}!</p> <!--로그인 시 띄우는 정보-->
-            <p id="eth"></p> 
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link" href="/myinfo?id={{ user_id }}">{{ user_id }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">LogOut</a>
-                </li>
-            </ul>
-            <br>
-            <script>
-                function MyETH() {
-                    const web3 = new Web3(new Web3.providers.HttpProvider("HTTP://210.119.34.24:7545"));
+                        const balance = web3.fromWei(web3.eth.getBalance(`{{user_acc}}`)).toNumber().toFixed(2);
+                        $('#eth').text(`${balance} ETH`);
+                    }
 
-                    const balance = web3.fromWei(web3.eth.getBalance(`{{user_acc}}`)).toNumber().toFixed(2);
-                    $('#eth').text(`${balance} ETH`);
-                }
-
-                $(document).ready(function () {
-                    if (`{{user_acc}}`) MyETH();
-                });
-            </script>
-            {% else %}
-            <ul class="nav justify-content-end"> <!--로그인 아닐 시 띄우는 정보-->
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
-                </li>
-            </ul>
-            {% endif %}
-        </div>
-
-
-        <!-- Added Products Section -->
-        <div class="added-products">
-            <h2>Added Products</h2>
-            <div class="product-grid">
-                <!-- Product 1 -->
-                <div class="product-card">
-                    <img src="images/1.jpg" alt="Product Image">
-                    <div class="product-info">
-                        <h4>Half Running Set</h4>
-                        <p>$99 ~ $129</p>
-                        <div class="rating">
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                        </div>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="product-card">
-                    <img src="image/2.jpg" alt="Product Image">
-                    <div class="product-info">
-                        <h4>Formal Men Lowers</h4>
-                        <p>$99 ~ $129</p>
-                        <div class="rating">
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                        </div>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-card">
-                    <img src="images/3.jpg" alt="Product Image">
-                    <div class="product-info">
-                        <h4>Half Running Suit</h4>
-                        <p>$99 ~ $129</p>
-                        <div class="rating">
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                        </div>
-                        <a href="#" class="btn">View Details</a>
-                    </div>
-                </div>
-
-                <!-- More products as needed -->
+                    $(document).ready(function () {
+                        if (`{{user_acc}}`) MyETH();
+                    });
+                </script>
+                {% else %}
+                <ul class="nav justify-content-end"> <!--로그인 아닐 시 띄우는 정보-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                </ul>
+                {% endif %}
             </div>
-        </div>
-    </section>
 
+
+            <!-- Added Products Section -->
+            <div class="added-products">
+                <h2>Added Products</h2>
+                <div class="product-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <img src="images/1.jpg" alt="Product Image">
+                        <div class="product-info">
+                            <h4>Half Running Set</h4>
+                            <p>$99 ~ $129</p>
+                            <div class="rating">
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                            </div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <img src="image/2.jpg" alt="Product Image">
+                        <div class="product-info">
+                            <h4>Formal Men Lowers</h4>
+                            <p>$99 ~ $129</p>
+                            <div class="rating">
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                            </div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <img src="images/3.jpg" alt="Product Image">
+                        <div class="product-info">
+                            <h4>Half Running Suit</h4>
+                            <p>$99 ~ $129</p>
+                            <div class="rating">
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                                <i class='bx bx-star'></i>
+                            </div>
+                            <a href="#" class="btn">View Details</a>
+                        </div>
+                    </div>
+
+                    <!-- More products as needed -->
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col"></div>
     <footer>
         <div class="end-text">
             <p>Copyright @2024. All Rights Reserved. Designed By Saidul Islam.</p>

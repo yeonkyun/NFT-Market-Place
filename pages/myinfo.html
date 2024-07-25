@@ -28,31 +28,31 @@
       <form method="post" action="/updateimpl">
         <div class="form-group">
           <label for="id">ID</label>
-          <input type="text" value="{{registerimpl.id}}"    id="id" name="id" required>
-      </div>
-      <div class="form-group">
+          <input type="text" value="{{user.id}}" name="id" required readonly>
+        </div>
+        <div class="form-group">
           <label for="pw">Password</label>
-          <input type="password" id="pw" name="pwd" required>
-      </div>
-      <div class="form-group">
+          <input type="password" value="{{user.pw}}" name="pwd" required>
+        </div>
+        <div class="form-group">
           <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
-      </div>
-      <div class="form-group">
+          <input type="text" value="{{user.name}}" name="name" required readonly>
+        </div>
+        <div class="form-group">
           <label for="nickname">Nickname</label>
-          <input type="text" id="nickname" name="nickname" required>
-      </div>
-      <div class="form-group">
+          <input type="text" value="{{user.nickname}}" name="nickname" required>
+        </div>
+        <div class="form-group">
           <label for="acc">Account</label>
-          <input type="text" id="acc" name="acc" required>
-      </div>
-      <div class="form-group">
+          <input type="text" value="{{user.acc}}" name="acc" required>
+        </div>
+        <div class="form-group">
           <label for="phn">Phone Number</label>
-          <input type="text" id="phn" name="phn" required>
-      </div>
+          <input type="text" value="{{user.phn}}" id="phn" name="phn" required>
+        </div>
         <button type="submit" class="btn btn-primary">Update</button>
       </form>
-      <a href="/cust/deleteimpl?id={{custinfo.id}}" class="btn btn-danger" role="button">Delete</a>
+      <a href="/deleteimpl?id={{user.id}}" class="btn btn-danger" role="button">Delete</a>
     </div>
   </section>
 
