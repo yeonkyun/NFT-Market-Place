@@ -23204,7 +23204,7 @@ body.avgrund-active {
   top: 17px;
 }
 
-.sidebar .sidebar-legend li:nth-child(2) a:before {
+/* .sidebar .sidebar-legend li:nth-child(2) a:before {
   background: #f2125e;
 }
 
@@ -23214,7 +23214,7 @@ body.avgrund-active {
 
 .sidebar .sidebar-legend li:nth-child(4) a:before {
   background: #2b80ff;
-}
+} */
 
 .sidebar .nav {
   overflow: hidden;

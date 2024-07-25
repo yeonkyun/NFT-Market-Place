@@ -127,6 +127,14 @@ app.get('/login', (req, res) => {
 //     res.redirect('/');
 // })
 
+app.get('/error-404', (req, res) => {
+    res.render('error-404');
+})
+
+app.get('/error-500', (req, res) => {
+    res.render('error-500');
+})
+
 //addProduct page
 app.get('/addProduct', (req, res) => {
     res.render('addProduct');
