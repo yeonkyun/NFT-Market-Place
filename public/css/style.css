@@ -306,13 +306,13 @@ header.sticky {
 }
 
 .end-text {
-    background-color: #758694;
+    background-color: white;
     text-align: center;
     padding: 20px;
 }
 
 .end-text p {
-    color: #ffffff;
+    color: black;
     text-transform: capitalize;
 }
 
@@ -446,20 +446,21 @@ header.sticky {
 /* shopping */
 
 .shop-banner {
-    background-color: #f4f4f4;
-    padding: 50px 10%;
+    background: linear-gradient(to bottom, #e5e5e5, #ffffff);
+    padding: 50px 0;
+    color: black;
     text-align: center;
 }
 
 .banner-text h1 {
     margin-top: 100px;
-    color: #333;
+    color: #000;
     font-size: 36px;
     margin-bottom: 10px;
 }
 
 .banner-text p {
-    color: #777;
+    color: #ee1c4e;
     font-size: 18px;
 }
 
@@ -538,26 +539,18 @@ header.sticky {
     margin-bottom: 10px;
 }
 
-.product-info .rating {
-    margin-bottom: 10px;
-}
-
-.product-info .rating i {
-    color: #ff8c00;
-    font-size: 16px;
-}
-
 .product-info .btn {
     background-color: #ee1c4e;
     color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 10px 10px;
+    border-radius: 20px;
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s;
+    margin-top: 10px;
 }
 
-.product-info .btn:hover {
+.product-info .btn:hover { /* 구매 버튼 커서 색상 바뀜 */
     background-color: #d41e5a;
 }
 
@@ -685,8 +678,8 @@ header.sticky {
 
 .added-products h2 {
     margin-top: 0;
-    text-align: center;
-    margin-right: 79%;
+    margin-right: 50%;
+    text-align: right;
 }
 
 .product-grid {

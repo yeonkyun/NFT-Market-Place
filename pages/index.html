@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<style>
 
-</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,29 +9,31 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <style>
+        body {
+            font-family: 'Jost', sans-serif;
+        }
+
+        .korean-font {
+            font-family: 'Do Hyeon', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
     <header>
         <a href="/" class="logo"><img src="images/logo.png" alt="Logo"></a>
-
-        <ul class="navmenu">
-            <li><a href="/">home</a></li>
-            <li><a href="/shopping">shop</a></li>
-            <li><a href="/addProduct">Add products</a></li>
-        </ul>
-
         <div class="nav-iocon">
             <a href="#"><i class='bx bx-search'></i></a>
             <a href="/login"><i class='bx bx-user'></i></a>
             <a href="#"><i class='bx bx-cart'></i></a>
-
             <div class="bx bx-menu" id="menu-icon"></div>
         </div>
     </header>
@@ -44,15 +44,17 @@
             <p>Find the best deals and latest trends.</p>
         </div>
     </section>
+
     <!-- 프로필 영역 -->
     <div class="col"></div>
     <div class="col-sm-8">
         <!-- 유저 프로필 -->
         <section class="profile-products">
-            <div class="profile-section" style="text-align: center;">
-                <h2>User Profile</h2>
+            <div class="profile-section korean-font" style="text-align: center;">
+                <h2>사용자 프로필</h2>
                 {% if user_id %}
                 <p>Welcome, {{ user_name }}!</p> <!--로그인 시 띄우는 정보-->
+                <p><a href="/addProduct">Add Product</a></p>
                 <p id="eth"></p>
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
@@ -89,52 +91,44 @@
                 {% endif %}
             </div>
 
-
-        <!-- Added Products Section -->
-        <div class="added-products">
-            <h2>Added Products</h2>
-            <div class="product-grid">
-                <!-- Product 1 -->
-                {% for data in datas %}
-                <div class="product-card">
-                    <img class="item_img" src="images/{{data.contents}}">
-                    <div class="product-info">
-                        <h4>{{ data.name }}</h4>
-                        <p>{{ data.price }}</p>
-                        <div class="rating">
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
-                            <i class='bx bx-star'></i>
+            <!-- Added Products Section -->
+            <div class="added-products korean-font">
+                <h2>Added Products</h2>
+                <div class="product-grid">
+                    <!-- Product 1 -->
+                    {% for data in datas %}
+                    <div class="product-card">
+                        <img class="item_img" src="images/{{data.contents}}">
+                        <div class="product-info korean-font">
+                            <h4>{{ data.name }}</h4>
+                            <p>{{ data.price }}</p>
+                            <a href="/itemdetail?id={{ data.id }}" class="btn">View Details</a>
                         </div>
-                        <a href="/itemdetail?id={{ data.id }}" class="btn">View Details</a>
                     </div>
+                    {% endfor %}
+
+                    <!-- More products as needed -->
                 </div>
-                {% endfor %}
-
-                <!-- More products as needed -->
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer>
-        <div class="end-text">
-            <p>Copyright @2024. All Rights Reserved. Designed By Saidul Islam.</p>
-        </div>
-    </footer>
+        <footer>
+            <div class="end-text">
+                <p>Copyright @2024. All Rights Reserved. Designed By Saidul Islam.</p>
+            </div>
+        </footer>
 
-    <!-- JavaScript -->
-    <script src="java.js"></script>
-    <script>
-        // JavaScript to handle price range slider
-        const priceRange = document.getElementById('priceRange');
-        const priceValue = document.getElementById('priceValue');
+        <!-- JavaScript -->
+        <script src="java.js"></script>
+        <script>
+            // JavaScript to handle price range slider
+            const priceRange = document.getElementById('priceRange');
+            const priceValue = document.getElementById('priceValue');
 
-        priceRange.addEventListener('input', function () {
-            priceValue.textContent = `$${priceRange.value}`;
-        });
-    </script>
+            priceRange.addEventListener('input', function () {
+                priceValue.textContent = `$${priceRange.value}`;
+            });
+        </script>
 </body>
 
 </html>
