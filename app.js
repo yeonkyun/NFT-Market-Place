@@ -149,8 +149,9 @@ passport.use(
 // app.get('/', (req, res) => {
 //     res.render('index');
 // });
+
 //main
-app.get('/index', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         console.log('Executing query:', dbSQL.getNftItem);
         const result = await queryDatabase(dbSQL.getNftItem);
@@ -170,7 +171,7 @@ app.get('/login', (req, res) => {
 
 // 로그인 라우트
 app.post('/login', passport.authenticate('local', {
-    successRedirect: '/index', //로그인 후 이동
+    successRedirect: '/', //로그인 후 이동
     failureRedirect: '/loginfail'
 }))
 
@@ -183,7 +184,7 @@ app.get('/logout', (req, res) => {
     req.logout(err => {
         if (err) return next(err);
         req.session.destroy();
-        res.redirect('/index');
+        res.redirect('/');
     });
 });
 //addProduct page
@@ -192,7 +193,7 @@ app.get('/addProduct', (req, res) => {
 })
 
 //index page
-app.get('/index', (req, res) => {
+app.get('/', (req, res) => {
     res.render('index');
 })
 
@@ -281,7 +282,7 @@ app.post('/updateimpl', async (req, res) => {
         await queryDatabase(queries.updateUser, values);
         console.log('Update OK!');
         //res.redirect('/myinfo?id=' + id); // 업데이트 후 상세 정보 페이지로 리디렉션
-        res.redirect('/index?id=' + id);
+        res.redirect('/?id=' + id);
     } catch (e) {
         console.log('Update Error');
         console.log(e);
@@ -295,7 +296,7 @@ app.post("/deleteimpl", async (req, res) => {
 
     try {
         // 사용자 레코드 삭제
-        await queryDatabase(queries.deleteUser, [id]);
+        await queryDatabase(dbSQL.deleteUser, [id]);
         console.log('Delete ok!');
 
         // 세션 무효화
@@ -304,7 +305,7 @@ app.post("/deleteimpl", async (req, res) => {
                 console.log('Session destroy error:', err);
                 return res.status(500).send('Session destroy error');
             }
-            res.redirect('/index'); // 로그아웃 상태로 쇼핑 페이지로 리디렉션
+            res.redirect('/'); // 로그아웃 상태로 쇼핑 페이지로 리디렉션
         });
     } catch (err) {
         console.log('Delete Error');
