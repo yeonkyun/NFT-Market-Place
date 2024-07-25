@@ -1,1 +1,0 @@
-// Administator Routes

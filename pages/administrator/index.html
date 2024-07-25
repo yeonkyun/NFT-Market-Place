@@ -21,21 +21,22 @@
     <!-- 네비게이션 바 -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo" /></a>
+        <a class="navbar-brand brand-logo" href="/administrator"><img src="images/logo.png" alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="/administrator"><img src="images/logo-mini.svg" alt="logo" /></a>
+        <!-- <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex">
         <button class="navbar-toggler navbar-toggler align-self-center d-none d-lg-flex" type="button"
           data-toggle="minimize">
           <span class="typcn typcn-th-menu"></span>
-        </button>
+        </button> -->
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav mr-lg-2">
           <li class="nav-item  d-none d-lg-flex">
-            <a class="nav-link" href="#">
-              Calendar
+            <a class="nav-link active" href="#">
+              관리 시스템
             </a>
           </li>
-          <li class="nav-item  d-none d-lg-flex">
+          <!-- <li class="nav-item  d-none d-lg-flex">
             <a class="nav-link active" href="#">
               Statistic
             </a>
@@ -44,24 +45,26 @@
             <a class="nav-link" href="#">
               Employee
             </a>
-          </li>
+          </li> -->
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item d-none d-lg-flex  mr-2">
+          <!-- <li class="nav-item d-none d-lg-flex  mr-2">
             <a class="nav-link" href="#">
               Help
             </a>
-          </li>
+          </li> -->
           <li class="nav-item dropdown d-flex">
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center"
               id="messageDropdown" href="#" data-toggle="dropdown">
               <i class="typcn typcn-message-typing"></i>
-              <span class="count bg-success">2</span>
+              <!-- 수신된 메세지 개수 표시 -->
+              <span class="count bg-success">1</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
               aria-labelledby="messageDropdown">
-              <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-              <a class="dropdown-item preview-item">
+              <p class="mb-0 font-weight-normal float-left dropdown-header">메세지</p>
+              <!-- 수신된 메세지 예시 -->
+              <!-- <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
                 </div>
@@ -72,43 +75,21 @@
                     The meeting is cancelled
                   </p>
                 </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    New product launch
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                  <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
-                  </h6>
-                  <p class="font-weight-light small-text mb-0">
-                    Upcoming board meeting
-                  </p>
-                </div>
-              </a>
+              </a> -->
             </div>
           </li>
           <li class="nav-item dropdown  d-flex">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
               id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="typcn typcn-bell mr-0"></i>
-              <span class="count bg-danger">2</span>
+              <!-- 수신된 알람 개수 표시 -->
+              <span class="count bg-danger">1</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
               aria-labelledby="notificationDropdown">
-              <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-              <a class="dropdown-item preview-item">
+              <p class="mb-0 font-weight-normal float-left dropdown-header">알림</p>
+              <!-- 수신된 알람 예시 -->
+              <!-- <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-success">
                     <i class="typcn typcn-info-large mx-0"></i>
@@ -146,22 +127,22 @@
                     2 days ago
                   </p>
                 </div>
-              </a>
+              </a> -->
             </div>
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown" id="profileDropdown">
               <i class="typcn typcn-user-outline mr-0"></i>
-              <span class="nav-profile-name">Evan Morales</span>
+              <span class="nav-profile-name">{{user_name}}님</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+              <!-- <a class="dropdown-item">
                 <i class="typcn typcn-cog text-primary"></i>
-                Settings
-              </a>
+                설정
+              </a> -->
               <a class="dropdown-item">
                 <i class="typcn typcn-power text-primary"></i>
-                Logout
+                로그아웃
               </a>
             </div>
           </li>
@@ -173,175 +154,61 @@
       </div>
     </nav>
     <!-- 네비게이션 바 끝 -->
-    <div class="container-fluid page-body-wrapper">
-      <!-- 설정 패널 -->
-      <div class="theme-setting-wrapper">
-        <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
-        <div id="theme-settings" class="settings-panel">
-          <i class="settings-close typcn typcn-delete-outline"></i>
-          <p class="settings-heading">사이드바 스킨</p>
-          <div class="sidebar-bg-options" id="sidebar-light-theme">
-            <div class="img-ss rounded-circle bg-light border mr-3"></div>
-            Light
-          </div>
-          <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
-            <div class="img-ss rounded-circle bg-dark border mr-3"></div>
-            Dark
-          </div>
-          <p class="settings-heading mt-2">헤더 스킨</p>
-          <div class="color-tiles mx-0 px-4">
-            <div class="tiles success"></div>
-            <div class="tiles warning"></div>
-            <div class="tiles danger"></div>
-            <div class="tiles primary"></div>
-            <div class="tiles info"></div>
-            <div class="tiles dark"></div>
-            <div class="tiles default border"></div>
-          </div>
-        </div>
-      </div>
-      <!-- 설정 패널 끝 -->
 
+    <div class="container-fluid page-body-wrapper">
       <!-- 사이드바 -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
             <div class="d-flex sidebar-profile">
-              <div class="sidebar-profile-image">
-                <img src="images/faces/face29.png" alt="image">
-                <span class="sidebar-status-indicator"></span>
-              </div>
               <div class="sidebar-profile-name">
                 <p class="sidebar-name">
-                  Kenneth Osborne
+                  {{user_name}}님
                 </p>
                 <p class="sidebar-designation">
-                  Welcome
+                  {% if user_type == 'admin' %} 관리자 {% elif user_type == 'manager' %} 매니저 {% else %} 【직책 오류】 담당자에게 문의 하세요. {% endif %}
                 </p>
               </div>
             </div>
-            <div class="nav-search">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Type to search..." aria-label="search"
-                  aria-describedby="search">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="search">
-                    <i class="typcn typcn-zoom"></i>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <p class="sidebar-menu-title">Dash menu</p>
+            <p class="sidebar-menu-title">관리자 메뉴</p>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/administrator">
               <i class="typcn typcn-device-desktop menu-icon"></i>
-              <span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="typcn typcn-briefcase menu-icon"></i>
-              <span class="menu-title">UI Elements</span>
-              <i class="typcn typcn-chevron-right menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ui-basic">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
-              aria-controls="form-elements">
-              <i class="typcn typcn-film menu-icon"></i>
-              <span class="menu-title">Form elements</span>
+              <span class="menu-title">대시보드</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="form-elements">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
-              </ul>
-            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
-              <span class="menu-title">Charts</span>
+            <a class="nav-link" href="/administrator/users">
+              <i class="typcn typcn-user-outline menu-icon"></i>
+              <span class="menu-title">유저 정보 관리</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="charts">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="typcn typcn-th-small-outline menu-icon"></i>
-              <span class="menu-title">Tables</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="tables">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="typcn typcn-compass menu-icon"></i>
-              <span class="menu-title">Icons</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="icons">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/icons/mdi.html">Mdi icons</a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="typcn typcn-user-add-outline menu-icon"></i>
-              <span class="menu-title">User Pages</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="auth">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register </a></li>
-              </ul>
-            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
               <i class="typcn typcn-globe-outline menu-icon"></i>
-              <span class="menu-title">Error pages</span>
+              <span class="menu-title">오류 페이지</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="error">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="../error-404"> 404 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="../error-500"> 500 </a></li>
               </ul>
             </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/documentation/documentation.html">
-              <i class="typcn typcn-document-text menu-icon"></i>
-              <span class="menu-title">Documentation</span>
-            </a>
           </li>
         </ul>
         <ul class="sidebar-legend">
           <li>
-            <p class="sidebar-menu-title">Category</p>
+            <p class="sidebar-menu-title">담당자 문의</p>
           </li>
-          <li class="nav-item"><a href="#" class="nav-link">#Sales</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">#Marketing</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">#Growth</a></li>
+          <li class="nav-item row">
+            <a href="tel:01046232592" class="nav-link"><img src="images/sms-icons/Phone.png" alt="phone" style="width: 40px; border-radius: 7px;"></a>
+            <a href="sms:01046232592" class="nav-link"><img src="images/sms-icons/IMessage.png" alt="iMessage" style="width: 40px;"></a>
+            <a href="https://open.kakao.com/o/suEU4d8e" target="_blank" class="nav-link"><img src="images/sms-icons/KakaoTalk.png" alt="kakaoTalk" style="width: 40px;"></a>
+          </li>
         </ul>
       </nav>
       <!-- 사이드바 끝 -->
@@ -369,7 +236,7 @@
                   </div>
                 </div>
                 <div class="pr-1 mb-3 mr-2 mb-xl-0">
-                  <button type="button" class="btn btn-sm bg-white btn-icon-text border"><i
+                  <button id="export_btn" type="button" class="btn btn-sm bg-white btn-icon-text border"><i
                       class="typcn typcn-arrow-forward-outline mr-2"></i>Export</button>
                 </div>
                 <div class="pr-1 mb-3 mb-xl-0">
@@ -685,7 +552,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-lg-4 d-flex grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -876,7 +743,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <!-- content-wrapper 끝 -->
 

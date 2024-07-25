@@ -14,6 +14,7 @@ const port = process.env.SERVER_PORT || 3000;
 nunjucks.configure('pages', {
     express: app,
 })
+
 // Multer 사용
 const multer = require('multer')
 const limits = {
@@ -23,6 +24,7 @@ const limits = {
     fileSize: 16777216, //multipart 형식 폼에서 최대 파일 사이즈(bytes) "16MB 설정" (기본 값 무제한)
     files: 10, //multipart 형식 폼에서 파일 필드 최대 개수 (기본 값 무제한)
 }
+
 // 파일 경로 및 이름 설정 옵션
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -32,6 +34,7 @@ const storage = multer.diskStorage({
         cb(null, file.originalname) //파일 이름 설정
     }
 })
+
 const upload = multer({
     storage: storage
 })
@@ -65,17 +68,16 @@ app.use(passport.session());
 app.use((req, res, next) => {
     res.locals.user_id = req.user ? req.user.id : null;
     res.locals.user_name = req.user ? req.user.name : null;
-    res.locals.user_acc = req.user ? req.user.acc : null;
+    res.locals.user_nickname = req.user ? req.user.nickname : null;
+    res.locals.user_rth_addr = req.user ? req.user.eth_addr : null;
+    res.locals.user_type = req.user ? req.user.type : null;
     next();
 });
 
 // login이 최초로 성공했을 때만 호출되는 함수
 // done(null, user.id)로 세션을 초기화 한다.
 passport.serializeUser(function (req, user, done) {
-    console.log('serializeUser' + user);
-    console.log('serializeUser' + user.id);
-    console.log('serializeUser' + user.name);
-    console.log('serializeUser' + user.acc);
+    console.log('Login Success: ' + user.name);
 
     done(null, user);
 });
@@ -146,10 +148,6 @@ passport.use(
 
 
 // // main page
-// app.get('/', (req, res) => {
-//     res.render('index');
-// });
-//main
 app.get('/', async (req, res) => {
     try {
         console.log('Executing query:', dbSQL.getNftItem);
@@ -174,10 +172,6 @@ app.post('/login', passport.authenticate('local', {
     failureRedirect: '/loginfail'
 }))
 
-// app.get('/loginfail', (req, res) => {
-//     res.render('index', { center: 'loginfail' });
-// })
-
 //로그아웃
 app.get('/logout', (req, res) => {
     req.logout(err => {
@@ -186,6 +180,7 @@ app.get('/logout', (req, res) => {
         res.redirect('/');
     });
 });
+
 //addProduct page
 app.get('/addProduct', (req, res) => {
     res.render('addProduct');
@@ -224,6 +219,7 @@ app.get('/itemdetail', async (req, res) => {
         res.status(500).send('Database error'); // 에러 발생 시 500 에러를 반환합니다
     }
 });
+
 //myinfo page
 app.get('/myinfo', async (req, res) => {
     try {
@@ -233,8 +229,6 @@ app.get('/myinfo', async (req, res) => {
         console.log(e);
     }
 });
-
-
 
 // 회원가입
 app.post('/registerimpl', async (req, res) => {
@@ -337,13 +331,16 @@ app.post('/nftitem', upload.single('image'), async (req, res) => {
     }
 });
 
+app.get('/error-404', (req, res) => {
+    res.render('error-404');
+})
 
-app.listen(3000, () => {
-    console.log('Server started on http://localhost:3000');
-});
+app.get('/error-500', (req, res) => {
+    res.render('error-500');
+})
 
-// const administrator = require('./routes/administrator');
-// app.use('/administrator', administrator);
+const administrator = require('./routes/administrator');
+app.use('/administrator', administrator);
 
 app.listen(port, () => {
     console.log(`Server start port: ${port}`);
