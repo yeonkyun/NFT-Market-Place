@@ -135,7 +135,7 @@ passport.use(
                 }
 
                 // 로그인 성공
-                return done(null, { id: userid, name: user.name, acc: user.acc });
+                return done(null, { id: userid, name: user.name, nickname: user.nickname, eth_addr: user.eth_addr, type: user.type });
 
             } catch (err) {
                 // 에러 처리
@@ -150,10 +150,7 @@ passport.use(
 // // main page
 app.get('/', async (req, res) => {
     try {
-        console.log('Executing query:', dbSQL.getNftItem);
-        const result = await queryDatabase(dbSQL.getNftItem);
-        console.log('Query result:', result);
-
+        const result = await queryDatabase(dbSQL.getAllNftItem);
         res.render('index', { datas: result });
     } catch (e) {
         console.error('Error fetching NFT items', e);
@@ -191,11 +188,6 @@ app.get('/', (req, res) => {
     res.render('index');
 })
 
-//register page
-app.get('/register', (req, res) => {
-    res.render('register');
-})
-
 
 app.get('/itemdetail', async (req, res) => {
     const itemId = req.query.id; // 쿼리 파라미터에서 아이템 ID를 가져옵니다
@@ -230,27 +222,17 @@ app.get('/myinfo', async (req, res) => {
     }
 });
 
+//register page
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+
 // 회원가입
 app.post('/registerimpl', async (req, res) => {
-    // 입력값 받기
-    let id = req.body.id;
-    let pwd = req.body.pwd;
-    let name = req.body.name;
-    let nickname = req.body.nickname;
-    let acc = req.body.acc;
-    let phn = req.body.phn;
-    let reg_date = req.body.reg_date;
-    let user_type = req.body.user_type || 'user'; // user_type 기본값 설정
-
-    console.log(id + ' ' + pwd + ' ' + name + ' ' + nickname + ' ' + acc + ' ' + phn + ' ' + reg_date);
-
-    // DB에 입력하고 center에 회원가입을 축하합니다. 출력
-    let values = [id, pwd, name, nickname, acc, phn, reg_date, user_type];
-
     try {
-        await queryDatabase(dbSQL.createUser, values);
-        console.log('Insert OK!');
-        res.render('registerok', { name });
+        const result = await queryDatabase(dbSQL.createUser, [req.body.id, req.body.pw, req.body.name, req.body.nickname, req.body.eth_addr, req.body.phn]);
+        console.log(result);
+        res.render('registerok', { name: req.body.name });
     } catch (e) {
         console.log('Insert Error');
         console.log(e);
@@ -317,7 +299,7 @@ app.post('/nftitem', upload.single('image'), async (req, res) => {
     // 값이 제대로 전송되었는지 확인
     console.log(`input data ${name}, ${originalname}, ${price}`);
 
-    let values = [name, originalname, price];
+    let values = [res.locals.user_id, name, originalname, price];
 
     try {
         // 쿼리 실행

@@ -34,6 +34,9 @@ const queries = {
   getNftItemById: `
     SELECT * FROM nft_item WHERE id = ?
   `,
+  getAllNftItem: `
+    SELECT * FROM nft_item
+  `,
   updateNftItem: `
     UPDATE nft_item
     SET name = ?, contents = ?, price = ?

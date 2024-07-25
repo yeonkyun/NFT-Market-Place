@@ -171,16 +171,16 @@
                                                     <td>{{ user.id }}</td>
                                                     <td>{{ user.name }}</td>
                                                     <td>{{ user.nickname }}</td>
-                                                    <td>{{ user.acc }}</td>
+                                                    <td>{{ user.eth_addr }}</td>
                                                     <td>{{ user.phn }}</td>
-                                                    <td>{{ user.reg_date }}</td>
+                                                    <td>{{ user.createAt }}</td>
                                                     <td>
-                                                        {% if user.user_type == 'admin' %}
-                                                        <label class="badge badge-danger">{{ user.user_type }}</label>
-                                                        {% elif user.user_type == 'manager' %}
-                                                        <label class="badge badge-info">{{ user.user_type }}</label>
+                                                        {% if user.type == 'admin' %}
+                                                        <label class="badge badge-danger">{{ user.type }}</label>
+                                                        {% elif user.type == 'manager' %}
+                                                        <label class="badge badge-info">{{ user.type }}</label>
                                                         {% else %}
-                                                        <label class="badge badge-success">{{ user.user_type }}</label>
+                                                        <label class="badge badge-success">{{ user.type }}</label>
                                                         {% endif %}
                                                     </td>
                                                 </tr>
