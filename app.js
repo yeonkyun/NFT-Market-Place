@@ -188,6 +188,30 @@ app.get('/register', (req, res) => {
     res.render('register');
 })
 
+//myinfo page
+app.get('/myinfo', (req, res) => {
+    //res.render('myinfo');
+    let id = req.query.id;
+    conn = dbConnect.getConnection();
+    conn.query(dbSQL.getUserById, id, (err, result, fields) => {
+        try {
+            if (err) {
+                console.log('Select Error');
+                throw err;
+            } else {
+                console.log(result);
+                custinfo = result[0];
+                console.log(myinfo);
+                goto.go(req, res, { 'center': 'myinfo', 'myinfo': myinfo });
+            }
+        } catch (e) {
+            console.log(e);
+        } finally {
+            dbConnect.close(conn);
+        }
+    });
+});
+
 //shopping page
 app.get('/shopping', (req, res) => {
     res.render('shopping');
