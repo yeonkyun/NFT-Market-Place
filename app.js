@@ -145,9 +145,22 @@ passport.use(
 );
 
 
-//main page
-app.get('/', (req, res) => {
-    res.render('index');
+// // main page
+// app.get('/', (req, res) => {
+//     res.render('index');
+// });
+//main
+app.get('/index', async (req, res) => {
+    try {
+        console.log('Executing query:', dbSQL.getNftItem);
+        const result = await queryDatabase(dbSQL.getNftItem);
+        console.log('Query result:', result);
+
+        res.render('index', { datas: result });
+    } catch (e) {
+        console.error('Error fetching NFT items', e);
+        res.status(500).send('Database error');
+    }
 });
 
 //login page
@@ -188,19 +201,7 @@ app.get('/register', (req, res) => {
     res.render('register');
 })
 
-//shopping page
-app.get('/shopping', async (req, res) => {
-    try {
-        console.log('Executing query:', dbSQL.getNftItem);
-        const result = await queryDatabase(dbSQL.getNftItem);
-        console.log('Query result:', result);
 
-        res.render('shopping', { datas: result });
-    } catch (e) {
-        console.error('Error fetching NFT items', e);
-        res.status(500).send('Database error');
-    }
-});
 app.get('/itemdetail', async (req, res) => {
     const itemId = req.query.id; // 쿼리 파라미터에서 아이템 ID를 가져옵니다
     if (!itemId) {
