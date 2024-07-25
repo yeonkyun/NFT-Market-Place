@@ -38,6 +38,8 @@ app.use(passport.session());
 app.use((req, res, next) => {
     res.locals.user_id = req.user ? req.user.id : null;
     res.locals.user_name = req.user ? req.user.name : null;
+    res.locals.user_acc = req.user ? req.user.acc : null;
+    res.locals.user_type = req.user ? req.user.user_type : null;
     next();
 });
 
@@ -103,7 +105,7 @@ passport.use(
 
 //main page
 app.get('/', (req, res) => {
-    res.render('');
+    res.render('index');
 });
 
 //login page
