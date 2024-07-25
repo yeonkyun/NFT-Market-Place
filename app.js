@@ -279,7 +279,7 @@ app.post('/updateimpl', async (req, res) => {
 
     try {
         // 업데이트 쿼리 실행
-        await queryDatabase(queries.updateUser, values);
+        await queryDatabase(dbSQL.updateUser, values);
         console.log('Update OK!');
         //res.redirect('/myinfo?id=' + id); // 업데이트 후 상세 정보 페이지로 리디렉션
         res.redirect('/?id=' + id);
