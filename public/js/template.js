@@ -7,12 +7,12 @@
     var footer = $('.footer');
     var sidebar = $('.sidebar');
 
-    //Add active class to nav-link based on url dynamically
-    //Active class can be hard coded directly in html file also as required
+    // URL을 동적으로 기준으로 nav-link에 active 클래스 추가
+    // Active 클래스는 필요에 따라 HTML 파일에 직접 하드 코딩할 수도 있음
 
     function addActiveClass(element) {
       if (current === "") {
-        //for root url
+        // 루트 URL의 경우
         if (element.attr('href').indexOf("index.html") !== -1) {
           element.parents('.nav-item').last().addClass('active');
           if (element.parents('.sub-menu').length) {
@@ -21,8 +21,9 @@
           }
         }
       } else {
-        //for other url
-        if (element.attr('href').indexOf(current) !== -1) {
+        // 다른 URL의 경우
+        // 변경된 부분: 정확한 경로 일치를 검사하도록 수정
+        if (element.attr('href') === current) {
           element.parents('.nav-item').last().addClass('active');
           if (element.parents('.sub-menu').length) {
             element.closest('.collapse').addClass('show');
@@ -35,29 +36,28 @@
       }
     }
 
-    var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
+    // 현재 URL 경로에서 마지막 부분을 가져옴
+    var current = location.pathname;
     $('.nav li a', sidebar).each(function() {
       var $this = $(this);
       addActiveClass($this);
-    })
+    });
 
     $('.horizontal-menu .nav li a').each(function() {
       var $this = $(this);
       addActiveClass($this);
-    })
+    });
 
-    //Close other submenu in sidebar on opening any
-
+    // 사이드바에서 다른 서브 메뉴 열기 시 기존 서브 메뉴 닫기
     sidebar.on('show.bs.collapse', '.collapse', function() {
       sidebar.find('.collapse.show').collapse('hide');
     });
 
-
-    //Change sidebar and content-wrapper height
+    // 사이드바 및 content-wrapper 높이 변경
     applyStyles();
 
     function applyStyles() {
-      //Applying perfect scrollbar
+      // perfect scrollbar 적용
       if (!body.hasClass("rtl")) {
         if ($('.settings-panel .tab-content .tab-pane.scroll-wrapper').length) {
           const settingsPanelScroll = new PerfectScrollbar('.settings-panel .tab-content .tab-pane.scroll-wrapper');
@@ -81,14 +81,15 @@
       }
     });
 
-    //checkbox and radios
+    // 체크박스 및 라디오 버튼
     $(".form-check label,.form-radio label").append('<i class="input-helper"></i>');
 
-    //Horizontal menu in mobile
+    // 모바일에서 수평 메뉴
     $('[data-toggle="horizontal-menu-toggle"]').on("click", function() {
       $(".horizontal-menu .bottom-navbar").toggleClass("header-toggled");
     });
-    // Horizontal menu navigation in mobile menu on click
+
+    // 모바일 메뉴에서 수평 메뉴 내비게이션 클릭 시
     var navItemClicked = $('.horizontal-menu .page-navigation >.nav-item');
     navItemClicked.on("click", function(event) {
       if(window.matchMedia('(max-width: 991px)').matches) {
@@ -97,8 +98,9 @@
         }
         $(this).toggleClass('show-submenu');
       }        
-    })
+    });
 
+    // 스크롤 시 수평 메뉴 고정
     $(window).scroll(function() {
       if(window.matchMedia('(min-width: 992px)').matches) {
         var header = $('.horizontal-menu');

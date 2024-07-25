@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>관리자</title>
+    <!-- 사용자 정의 CSS -->
+    <link rel="stylesheet" href="../../css/administrator.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../vendors/typicons.font/font/typicons.css">
+    <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+    <!-- JS -->
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- 네비게이션 바 -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="/administrator"><img src="../../images/logo.png"
+                        alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="/administrator"><img src="../../images/logo-mini.svg"
+                        alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item  d-none d-lg-flex">
+                        <a class="nav-link active" href="#">
+                            관리 시스템
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item dropdown d-flex">
+                        <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center"
+                            id="messageDropdown" href="#" data-toggle="dropdown">
+                            <i class="typcn typcn-message-typing"></i>
+                            <!-- 수신된 메세지 개수 표시 -->
+                            <span class="count bg-success">1</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                            aria-labelledby="messageDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">메세지</p>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown  d-flex">
+                        <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
+                            id="notificationDropdown" href="#" data-toggle="dropdown">
+                            <i class="typcn typcn-bell mr-0"></i>
+                            <!-- 수신된 알람 개수 표시 -->
+                            <span class="count bg-danger">1</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                            aria-labelledby="notificationDropdown">
+                            <p class="mb-0 font-weight-normal float-left dropdown-header">알림</p>
+                        </div>
+                    </li>
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle  pl-0 pr-0" href="#" data-toggle="dropdown"
+                            id="profileDropdown">
+                            <i class="typcn typcn-user-outline mr-0"></i>
+                            <span class="nav-profile-name">{{user_name}}님</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
+                            aria-labelledby="profileDropdown">
+                            <a class="dropdown-item">
+                                <i class="typcn typcn-power text-primary"></i>
+                                로그아웃
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                    data-toggle="offcanvas">
+                    <span class="typcn typcn-th-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <!-- 네비게이션 바 끝 -->
+
+        <div class="container-fluid page-body-wrapper">
+            <!-- 사이드바 -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <div class="d-flex sidebar-profile">
+                            <div class="sidebar-profile-name">
+                                <p class="sidebar-name">
+                                    {{user_name}}님
+                                </p>
+                                <p class="sidebar-designation">
+                                    {% if user_type == 'admin' %} 관리자 {% elif user_type == 'manager' %} 매니저 {% else %}
+                                    【직책 오류】 담당자에게 문의 하세요. {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        <p class="sidebar-menu-title">관리자 메뉴</p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/administrator">
+                            <i class="typcn typcn-device-desktop menu-icon"></i>
+                            <span class="menu-title">대시보드</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/administrator/users">
+                            <i class="typcn typcn-user-outline menu-icon"></i>
+                            <span class="menu-title">유저 정보 관리</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false"
+                            aria-controls="error">
+                            <i class="typcn typcn-globe-outline menu-icon"></i>
+                            <span class="menu-title">오류 페이지</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="error">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="../../error-404"> 404 </a></li>
+                                <li class="nav-item"> <a class="nav-link" href="../../error-500"> 500 </a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="sidebar-legend">
+                    <li>
+                        <p class="sidebar-menu-title">담당자 문의</p>
+                    </li>
+                    <li class="nav-item row">
+                        <a href="tel:01046232592" class="nav-link"><img src="../../images/sms-icons/Phone.png"
+                                alt="phone" style="width: 40px; border-radius: 7px;"></a>
+                        <a href="sms:01046232592" class="nav-link"><img src="../../images/sms-icons/IMessage.png"
+                                alt="iMessage" style="width: 40px;"></a>
+                        <a href="https://open.kakao.com/o/suEU4d8e" target="_blank" class="nav-link"><img
+                                src="../../images/sms-icons/KakaoTalk.png" alt="kakaoTalk" style="width: 40px;"></a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- 사이드바 끝 -->
+
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">유저 정보 목록</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>아이디</th>
+                                                    <th>이름</th>
+                                                    <th>닉네임</th>
+                                                    <th>이더리움 주소</th>
+                                                    <th>전화번호</th>
+                                                    <th>가입일자</th>
+                                                    <th>유형</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for user in users %}
+                                                <tr>
+                                                    <td>{{ user.id }}</td>
+                                                    <td>{{ user.name }}</td>
+                                                    <td>{{ user.nickname }}</td>
+                                                    <td>{{ user.eth_addr }}</td>
+                                                    <td>{{ user.phn }}</td>
+                                                    <td>{{ user.createAt }}</td>
+                                                    <td>
+                                                        {% if user.type == 'admin' %}
+                                                        <label class="badge badge-danger">{{ user.type }}</label>
+                                                        {% elif user.type == 'manager' %}
+                                                        <label class="badge badge-info">{{ user.type }}</label>
+                                                        {% else %}
+                                                        <label class="badge badge-success">{{ user.type }}</label>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:../../partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel 끝 -->
+        </div>
+        <!-- page-body-wrapper 끝 -->
+    </div>
+    <!-- container-scroller 끝 -->
+
+    <!-- 기본 JavaScript 파일 -->
+    <script src="../../vendors/js/vendor.bundle.base.js"></script>
+    <!-- 페이지별 플러그인 JavaScript 파일 (현재 없음) -->
+
+    <!-- 사용자 정의 JavaScript -->
+    <script src="../../js/off-canvas.js"></script>
+    <script src="../../js/hoverable-collapse.js"></script>
+    <script src="../../js/template.js"></script>
+    <script src="../../js/settings.js"></script>
+    <script src="../../js/todolist.js"></script>
+
+    <!-- 페이지별 플러그인 JavaScript -->
+    <script src="../../vendors/progressbar.js/progressbar.min.js"></script>
+    <script src="../../vendors/chart.js/Chart.min.js"></script>
+
+    <!-- 페이지별 사용자 정의 JavaScript -->
+    <script src="../../js/dashboard.js"></script>
+</body>
+
+</html>
