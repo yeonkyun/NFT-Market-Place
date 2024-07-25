@@ -145,16 +145,10 @@ passport.use(
 );
 
 
-// 기존 /shopping 경로 핸들러 유지
-app.get('/shopping', (req, res) => {
-    res.render('shopping'); // 쇼핑 페이지 템플릿을 렌더링
+//main page
+app.get('/index', (req, res) => {
+    res.render('index');
 });
-
-// 기본 경로에서 /shopping으로 리디렉션
-app.get('/', (req, res) => {
-    res.redirect('/shopping');
-});
-
 
 //login page
 app.get('/login', (req, res) => {
@@ -163,7 +157,7 @@ app.get('/login', (req, res) => {
 
 // 로그인 라우트
 app.post('/login', passport.authenticate('local', {
-    successRedirect: '/shopping', //로그인 후 이동
+    successRedirect: '/index', //로그인 후 이동
     failureRedirect: '/loginfail'
 }))
 
@@ -204,10 +198,7 @@ app.get('/myinfo', async (req, res) => {
     }
 });
 
-//shopping page
-app.get('/shopping', (req, res) => {
-    res.render('shopping');
-})
+
 
 // 회원가입
 app.post('/registerimpl', async (req, res) => {
@@ -254,7 +245,7 @@ app.post('/updateimpl', async (req, res) => {
         await queryDatabase(queries.updateUser, values);
         console.log('Update OK!');
         //res.redirect('/myinfo?id=' + id); // 업데이트 후 상세 정보 페이지로 리디렉션
-        res.redirect('/shopping?id=' + id);
+        res.redirect('/index?id=' + id);
     } catch (e) {
         console.log('Update Error');
         console.log(e);
@@ -277,7 +268,7 @@ app.post("/deleteimpl", async (req, res) => {
                 console.log('Session destroy error:', err);
                 return res.status(500).send('Session destroy error');
             }
-            res.redirect('/shopping'); // 로그아웃 상태로 쇼핑 페이지로 리디렉션
+            res.redirect('/index'); // 로그아웃 상태로 쇼핑 페이지로 리디렉션
         });
     } catch (err) {
         console.log('Delete Error');
