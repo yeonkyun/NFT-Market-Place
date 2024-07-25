@@ -145,10 +145,16 @@ passport.use(
 );
 
 
-//main page
-app.get('/', (req, res) => {
-    res.render('index');
+// 기존 /shopping 경로 핸들러 유지
+app.get('/shopping', (req, res) => {
+    res.render('shopping'); // 쇼핑 페이지 템플릿을 렌더링
 });
+
+// 기본 경로에서 /shopping으로 리디렉션
+app.get('/', (req, res) => {
+    res.redirect('/shopping');
+});
+
 
 //login page
 app.get('/login', (req, res) => {
@@ -247,7 +253,8 @@ app.post('/updateimpl', async (req, res) => {
         // 업데이트 쿼리 실행
         await queryDatabase(queries.updateUser, values);
         console.log('Update OK!');
-        res.redirect('/myinfo?id=' + id); // 업데이트 후 상세 정보 페이지로 리디렉션
+        //res.redirect('/myinfo?id=' + id); // 업데이트 후 상세 정보 페이지로 리디렉션
+        res.redirect('/shopping?id=' + id);
     } catch (e) {
         console.log('Update Error');
         console.log(e);
@@ -256,7 +263,28 @@ app.post('/updateimpl', async (req, res) => {
 });
 
 //deleteimpl
+app.post("/deleteimpl", async (req, res) => {
+    let id = req.body.id;
 
+    try {
+        // 사용자 레코드 삭제
+        await queryDatabase(queries.deleteUser, [id]);
+        console.log('Delete ok!');
+
+        // 세션 무효화
+        req.session.destroy(err => {
+            if (err) {
+                console.log('Session destroy error:', err);
+                return res.status(500).send('Session destroy error');
+            }
+            res.redirect('/shopping'); // 로그아웃 상태로 쇼핑 페이지로 리디렉션
+        });
+    } catch (err) {
+        console.log('Delete Error');
+        console.log(err);
+        res.status(500).send('Database error');
+    }
+});
 
 
 // nft_item 등록
