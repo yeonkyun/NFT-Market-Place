@@ -1,7 +1,70 @@
-<div class="container" style="margin-top:30px">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2>Item Detail Page</h2>
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Detail</title>
+    <!-- css link -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <a href="/index" class="logo"><img src="images/logo.png" alt="Logo"></a>
+
+    <ul class="navmenu">
+        <li><a href="/index">home</a></li>
+        <li><a href="/shopping">shop</a></li>
+        <li><a href="/addProduct">Add products</a></li>
+    </ul>
+
+    <div class="nav-iocon">
+        <a href="#"><i class='bx bx-search'></i></a>
+        <a href="/login"><i class='bx bx-user'></i></a>
+        <a href="#"><i class='bx bx-cart'></i></a>
+
+        <div class="bx bx-menu" id="menu-icon"></div>
     </div>
-  </div>
+</header>
+
+<section class="item-detail">
+    <div class="product-detail">
+        <img class="item_img" src="images/{{ iteminfo.contents }}">
+        <div class="product-info">
+            <h2>{{ iteminfo.name }}</h2>
+            <p id="regDate" data-reg-date="{{ iteminfo.reg_date }}">{{ iteminfo.reg_date }}</p>
+            <p>{{ iteminfo.price }}원</p>
+            <p>{{ iteminfo.description }}</p>
+            <button>Buy Now</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="end-text">
+        <p>Copyright @2024. All Rights Reserved. Designed By Saidul Islam.</p>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        formatDate();
+        
+        $("#count").change(function(){
+            calculateTotalPrice();
+        });
+    });
+
+    function formatDate(){
+        var regDate = $("#regDate").data("reg-date");
+        var date = new Date(regDate);
+        var formattedDate = date.getFullYear() + '년 ' +
+                            (date.getMonth() + 1) + '월 ' +
+                            date.getDate() + '일 ' +
+                            date.getHours() + '시 ' +
+                            date.getMinutes() + '분';
+        $("#regDate").text(formattedDate);
+    }
+</script>
+</body>
+</html>
