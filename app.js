@@ -39,6 +39,7 @@ const upload = multer({
 // Database 연동
 const { queryDatabase } = require('./database/dbConnect');
 var dbSQL = require('./database/dbSQL');
+var dbConnect = require('./database/dbConnect');
 
 app.use(
     session({
@@ -116,7 +117,7 @@ passport.use(
 
             try {
                 // 사용자 정보를 조회하는 쿼리
-                const result = await dbConnect.queryDatabase(queries.getUserById, [userid]);
+                const result = await dbConnect.queryDatabase(dbSQL.getUserById, [userid]);
 
                 // 사용자 존재 확인
                 if (result.length === 0) {
