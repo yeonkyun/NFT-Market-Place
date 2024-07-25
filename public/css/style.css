@@ -662,7 +662,8 @@ header.sticky {
 .profile-products {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 2%;
+    margin-left: 10%; /* 왼쪽 마진 추가 */
 }
 
 .profile-section {
@@ -674,7 +675,7 @@ header.sticky {
 }
 
 .added-products {
-    flex: 2.7;  
+    flex: 2;
 }
 
 
@@ -684,13 +685,18 @@ header.sticky {
 
 .added-products h2 {
     margin-top: 0;
+    text-align: center;
+    margin-right: 79%;
 }
 
 .product-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    margin-top: 50px;
+    margin-top: 10px;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    margin-left: 0; /* 왼쪽 마진 제거 */
+    padding-left: 0; /* 왼쪽 패딩 제거 */
 }
 
 .product-card {

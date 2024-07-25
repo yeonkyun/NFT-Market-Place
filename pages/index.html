@@ -42,35 +42,56 @@
         <div class="banner-text">
             <h1>Shop Our Latest Collection</h1>
             <p>Find the best deals and latest trends.</p>
+    <section class="shop-banner">
+        <div class="banner-text">
+            <h1>Shop Our Latest Collection</h1>
+            <p>Find the best deals and latest trends.</p>
         </div>
     </section>
+    <!-- 프로필 영역 -->
+    <div class="col"></div>
+    <div class="col-sm-8">
+        <!-- 유저 프로필 -->
+        <section class="profile-products">
+            <div class="profile-section" style="text-align: center;">
+                <h2>User Profile</h2>
+                {% if user_id %}
+                <p>Welcome, {{ user_name }}!</p> <!--로그인 시 띄우는 정보-->
+                <p id="eth"></p>
+                <ul class="nav justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/myinfo?id={{ user_id }}">{{ user_id }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">LogOut</a>
+                    </li>
+                </ul>
+                <br>
+                <script>
+                    function MyETH() {
+                        const web3 = new Web3(new Web3.providers.HttpProvider("HTTP://210.119.34.24:7545"));
 
-    <!-- 유저 프로필 -->
-    <section class="profile-products">
-        <div class="profile-section" style="text-align: center;">
-            <h2>User Profile</h2>
-            {% if loginid %}
-            <p>Welcome, {{ username }}!</p>
-            <p>Email: {{ email }}</p>
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link" href="/myinfo?id={{ loginid }}">{{ loginid }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">LogOut</a>
-                </li>
-            </ul>
-            {% else %}
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
-                </li>
-            </ul>
-            {% endif %}
-        </div>
+                        const balance = web3.fromWei(web3.eth.getBalance(`{{user_acc}}`)).toNumber().toFixed(2);
+                        $('#eth').text(`${balance} ETH`);
+                    }
+
+                    $(document).ready(function () {
+                        if (`{{user_acc}}`) MyETH();
+                    });
+                </script>
+                {% else %}
+                <ul class="nav justify-content-end"> <!--로그인 아닐 시 띄우는 정보-->
+                    <br>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <br>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
 
 
         <!-- Added Products Section -->

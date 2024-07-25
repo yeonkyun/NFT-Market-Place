@@ -15,26 +15,26 @@ nunjucks.configure('pages', {
     express: app,
 })
 // Multer 사용
-const multer  = require('multer')
+const multer = require('multer')
 const limits = {
     fieldNameSize: 200, // 필드명 사이즈 최대값 (기본값 100bytes)
     filedSize: 1024 * 1024, // 필드 사이즈 값 설정 (기본값 1MB)
     fields: 2, // 파일 형식이 아닌 필드의 최대 개수 (기본 값 무제한)
-    fileSize : 16777216, //multipart 형식 폼에서 최대 파일 사이즈(bytes) "16MB 설정" (기본 값 무제한)
-    files : 10, //multipart 형식 폼에서 파일 필드 최대 개수 (기본 값 무제한)
+    fileSize: 16777216, //multipart 형식 폼에서 최대 파일 사이즈(bytes) "16MB 설정" (기본 값 무제한)
+    files: 10, //multipart 형식 폼에서 파일 필드 최대 개수 (기본 값 무제한)
 }
 // 파일 경로 및 이름 설정 옵션
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'public/images') // 파일 업로드 경로
+        cb(null, 'public/images') // 파일 업로드 경로
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname) //파일 이름 설정
+        cb(null, file.originalname) //파일 이름 설정
     }
-  })
-const upload = multer({ 
+})
+const upload = multer({
     storage: storage
-}) 
+})
 
 // Database 연동
 const { queryDatabase } = require('./database/dbConnect');
@@ -65,6 +65,7 @@ app.use(passport.session());
 app.use((req, res, next) => {
     res.locals.user_id = req.user ? req.user.id : null;
     res.locals.user_name = req.user ? req.user.name : null;
+    res.locals.user_acc = req.user ? req.user.acc : null;
     next();
 });
 
@@ -92,7 +93,6 @@ passport.deserializeUser(function (req, user, done) {
 app.get('/loginfail', (req, res) => {
     res.render('loginfail', { message: '로그인에 실패했습니다. 다시 시도해 주세요.' });
 });
-
 
 
 // local login 전략을 세우는 함수
@@ -134,7 +134,7 @@ passport.use(
 
                 // 로그인 성공
                 return done(null, { id: userid, name: user.name, acc: user.acc });
-                
+
             } catch (err) {
                 // 에러 처리
                 console.error('Database error:', err);
@@ -170,7 +170,7 @@ app.get('/login', (req, res) => {
 
 // 로그인 라우트
 app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/index', //로그인 후 이동
     failureRedirect: '/loginfail'
 }))
 
@@ -224,6 +224,18 @@ app.get('/itemdetail', async (req, res) => {
         res.status(500).send('Database error'); // 에러 발생 시 500 에러를 반환합니다
     }
 });
+//myinfo page
+app.get('/myinfo', async (req, res) => {
+    try {
+        const result = await queryDatabase(dbSQL.getUserById, [req.user.id]);
+        res.render('myinfo', { user: result[0] });
+    } catch (e) {
+        console.log(e);
+    }
+});
+
+
+
 // 회원가입
 app.post('/registerimpl', async (req, res) => {
     // 입력값 받기
@@ -251,6 +263,57 @@ app.post('/registerimpl', async (req, res) => {
         res.status(500).send('Database error');
     }
 });
+
+// updateimpl
+app.post('/updateimpl', async (req, res) => {
+    // 입력값 받기
+    let id = req.body.id;
+    let pwd = req.body.pwd;
+    let name = req.body.name;
+    let nickname = req.body.nickname;
+    let acc = req.body.acc;
+    let phn = req.body.phn;
+
+    let values = [pwd, name, nickname, acc, phn, id];
+
+    try {
+        // 업데이트 쿼리 실행
+        await queryDatabase(queries.updateUser, values);
+        console.log('Update OK!');
+        //res.redirect('/myinfo?id=' + id); // 업데이트 후 상세 정보 페이지로 리디렉션
+        res.redirect('/index?id=' + id);
+    } catch (e) {
+        console.log('Update Error');
+        console.log(e);
+        res.status(500).send('Database error');
+    }
+});
+
+//deleteimpl
+app.post("/deleteimpl", async (req, res) => {
+    let id = req.body.id;
+
+    try {
+        // 사용자 레코드 삭제
+        await queryDatabase(queries.deleteUser, [id]);
+        console.log('Delete ok!');
+
+        // 세션 무효화
+        req.session.destroy(err => {
+            if (err) {
+                console.log('Session destroy error:', err);
+                return res.status(500).send('Session destroy error');
+            }
+            res.redirect('/index'); // 로그아웃 상태로 쇼핑 페이지로 리디렉션
+        });
+    } catch (err) {
+        console.log('Delete Error');
+        console.log(err);
+        res.status(500).send('Database error');
+    }
+});
+
+
 // nft_item 등록
 app.post('/nftitem', upload.single('image'), async (req, res) => {
     // 입력값 받기
