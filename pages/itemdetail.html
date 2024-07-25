@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Item Detail - Shop</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+    <header>
+        <a href="/index" class="logo"><img src="images/logo.png" alt="Logo"></a>
+
+        <ul class="navmenu">
+            <li><a href="/index">home</a></li>
+            <li><a href="/shopping">shop</a></li>
+            <li><a href="/addProduct">Add products</a></li>
+        </ul>
+
+        <div class="nav-iocon">
+            <a href="#"><i class='bx bx-search'></i></a>
+            <a href="/login"><i class='bx bx-user'></i></a>
+            <a href="#"><i class='bx bx-cart'></i></a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+        </div>
+    </header>
+
+    <!-- Product Detail Section -->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <!-- Product Image -->
+                <div class="col-md-6">
+                    <img class="card-img-top mb-5 mb-md-0" src="images/{{ iteminfo.contents }}" alt="{{ iteminfo.name }}" />
+                </div>
+                <!-- Product Info -->
+                <div class="col-md-6">
+                    <h2 class="display-5 fw-bolder">{{ iteminfo.name }}</h2>
+                    <div class = "text">
+                        <h5>판매가</h5>
+                    </div>
+                    <div class="fs-5 mb-5">
+                        <span id="priceInKRW">{{ iteminfo.price }} KRW</span>
+                    </div>
+                    <div class="fs-5 mb-5">
+                        <span id="priceInETH"></span>
+                    </div>
+                    <p class="lead">{{ iteminfo.description }}</p>
+                    <p class="small mb-1">등록일: <span id="regDate" data-reg-date="{{ iteminfo.reg_date }}">{{ iteminfo.reg_date }}</span></p>
+                    <div class="d-flex">
+                        <input class="form-control text-center me-3" id="count" type="number" value="1" min="1" max="{{ iteminfo.quantity }}" style="max-width: 3rem" />
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="simulatePayment()">
+                            <i class="bi-cart-fill me-1"></i>
+                            Buy Now
+                        </button>
+                    </div>
+                    <p id="paymentStatus" class="mt-3"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2024</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS for date formatting and payment simulation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            formatDate();
+            calculateTotalPrice();
+
+            document.getElementById('count').addEventListener('change', calculateTotalPrice);
+        });
+
+        function formatDate() {
+            var regDateElement = document.getElementById('regDate');
+            var regDate = regDateElement.dataset.regDate;
+            var date = new Date(regDate);
+            var formattedDate = date.getFullYear() + '년 ' +
+                                (date.getMonth() + 1) + '월 ' +
+                                date.getDate() + '일 ' +
+                                date.getHours() + '시 ' +
+                                date.getMinutes() + '분';
+            regDateElement.textContent = formattedDate;
+        }
+
+        function calculateTotalPrice() {
+            var priceInKRW = parseFloat('{{ iteminfo.price }}'); // 가격 (원화)
+            var count = parseInt(document.getElementById('count').value, 10);
+            var krwToEthRate = 0.000022; // 1 KRW = 0.000022 ETH (예시 값, 실제 환율로 교체 필요)
+            var totalPriceInKRW = priceInKRW * count;
+            var totalPriceInETH = (totalPriceInKRW * krwToEthRate).toFixed(6); // ETH로 환산
+            
+            document.getElementById('priceInETH').textContent = totalPriceInETH + ' ETH';
+            document.getElementById('totalPrice').textContent = totalPriceInETH + ' ETH';
+        }
+
+        function simulatePayment() {
+            var priceInKRW = parseFloat('{{ iteminfo.price }}'); // 가격 (원화)
+            var count = parseInt(document.getElementById('count').value, 10);
+            var krwToEthRate = 0.000022; // 1 KRW = 0.000022 ETH (예시 값, 실제 환율로 교체 필요)
+            var totalPriceInKRW = priceInKRW * count;
+            var totalPriceInETH = (totalPriceInKRW * krwToEthRate).toFixed(6); // ETH로 환산
+            
+            // 결제 시뮬레이션 메시지
+            document.getElementById('paymentStatus').textContent = `Processing your payment of ${totalPriceInETH} ETH...`;
+            
+            // 결제 처리 지연 시뮬레이션
+            setTimeout(() => {
+                document.getElementById('paymentStatus').textContent = `Payment of ${totalPriceInETH} ETH was successful! Thank you for your purchase.`;
+            }, 2000); // 2초 지연
+        }
+    </script>
+</body>
+</html>

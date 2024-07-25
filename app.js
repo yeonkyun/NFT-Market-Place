@@ -10,7 +10,7 @@ const nunjucks = require('nunjucks');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.SERVER_PORT || 3000;
-const { queryDatabase } = require('./database/dbConnect');
+
 nunjucks.configure('pages', {
     express: app,
 })
@@ -37,9 +37,9 @@ const upload = multer({
 })
 
 // Database 연동
-var dbConnect = require('./database/dbConnect');
+const { queryDatabase } = require('./database/dbConnect');
 var dbSQL = require('./database/dbSQL');
-const queries = require('./database/dbSQL');
+var dbConnect = require('./database/dbConnect'); //dbConnect 정의 추가
 
 app.use(
     session({
@@ -117,7 +117,7 @@ passport.use(
 
             try {
                 // 사용자 정보를 조회하는 쿼리
-                const result = await dbConnect.queryDatabase(queries.getUserById, [userid]);
+                const result = await dbConnect.queryDatabase(dbSQL.getUserById, [userid]); // queries->dbSQL로 변경
 
                 // 사용자 존재 확인
                 if (result.length === 0) {
@@ -145,9 +145,22 @@ passport.use(
 );
 
 
-//main page
-app.get('/index', (req, res) => {
-    res.render('index');
+// // main page
+// app.get('/', (req, res) => {
+//     res.render('index');
+// });
+//main
+app.get('/index', async (req, res) => {
+    try {
+        console.log('Executing query:', dbSQL.getNftItem);
+        const result = await queryDatabase(dbSQL.getNftItem);
+        console.log('Query result:', result);
+
+        res.render('index', { datas: result });
+    } catch (e) {
+        console.error('Error fetching NFT items', e);
+        res.status(500).send('Database error');
+    }
 });
 
 //login page
@@ -188,6 +201,29 @@ app.get('/register', (req, res) => {
     res.render('register');
 })
 
+
+app.get('/itemdetail', async (req, res) => {
+    const itemId = req.query.id; // 쿼리 파라미터에서 아이템 ID를 가져옵니다
+    if (!itemId) {
+        return res.status(400).send('Item ID is required'); // 아이템 ID가 없는 경우 400 에러를 반환합니다
+    }
+
+    try {
+        console.log('Executing query:', dbSQL.getNftItemById);
+        const result = await queryDatabase(dbSQL.getNftItemById, [itemId]);
+        console.log('Query result:', result);
+
+        if (result.length > 0) {
+            const itemInfo = result[0];
+            res.render('itemdetail', { iteminfo: itemInfo }); // 템플릿에 데이터를 전달합니다
+        } else {
+            res.status(404).send('Item not found'); // 아이템이 없는 경우 404 에러를 반환합니다
+        }
+    } catch (e) {
+        console.error('Error fetching item details', e);
+        res.status(500).send('Database error'); // 에러 발생 시 500 에러를 반환합니다
+    }
+});
 //myinfo page
 app.get('/myinfo', async (req, res) => {
     try {
