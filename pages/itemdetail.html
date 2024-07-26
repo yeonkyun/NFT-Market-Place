@@ -101,54 +101,6 @@
                 </div>
             </div>
         </header>
-
-        <div class="content-wrap"> <!-- 이 줄을 추가 -->
-            <!-- Product Detail Section -->
-            <section class="py-5">
-                <div class="container px-4 px-lg-5 my-5">
-                    <div class="row gx-4 gx-lg-5 align-items-center">
-                        <!-- Product Image -->
-                        <div class="col-md-6">
-                            <img class="card-img-top mb-5 mb-md-0" src="images/{{ iteminfo.contents }}"
-                                alt="{{ iteminfo.name }}" />
-                        </div>
-                        <!-- Product Info -->
-                        <div class="col-md-6">
-                            <h2 class="display-5 fw-bolder">{{ iteminfo.name }}</h2>
-                            <div class="text">
-                                <h5>판매가</h5>
-                            </div>
-                            <div class="fs-5 mb-5">
-                                <span id="priceInKRW">{{ iteminfo.price }} KRW</span>
-                            </div>
-                            <div class="fs-5 mb-5">
-                                <span id="priceInETH"></span>
-                            </div>
-                            <p class="lead">{{ iteminfo.description }}</p>
-                            <p class="small mb-1">등록일: <span id="regDate" data-reg-date="{{ iteminfo.reg_date }}">{{
-                                    iteminfo.reg_date }}</span></p>
-                            <div class="d-flex">
-                                <input class="form-control text-center me-3" id="count" type="number" value="1" min="1"
-                                    max="{{ iteminfo.quantity }}" style="max-width: 3rem" />
-                                <button class="btn btn-outline-dark flex-shrink-0" type="button"
-                                    onclick="simulatePayment()">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Buy Now
-                                </button>
-                            </div>
-                            <p id="paymentStatus" class="mt-3"></p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div> <!-- 이 줄을 추가 -->
-
-        <!-- Footer -->
-        <footer>
-            <div class="end-text">
-                <p>Copyright @2024. All Rights Reserved. Designed By Saidul Islam.</p>
-            </div>
-        </footer>
     </div> <!-- 이 줄을 추가 -->
 
     <!-- Bootstrap core JS -->

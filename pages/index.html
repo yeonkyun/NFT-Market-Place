@@ -45,8 +45,7 @@
 
         <!-- 프로필 영역 -->
         <div class="content-wrap"> <!-- 이 줄을 추가 -->
-            <div class="col"></div>
-            <div class="col-sm-8">
+            <div>
                 <!-- 유저 프로필 -->
                 <section class="profile-products">
                     <div class="profile-section" style="text-align: center;">
@@ -111,13 +110,6 @@
             </div>
         </div> <!-- 이 줄을 추가 -->
 
-        <footer>
-            <div class="end-text">
-                <p>Copyright @2024. All Rights Reserved. Designed By Saidul Islam.</p>
-            </div>
-        </footer>
-    </div> <!-- 이 줄을 추가 -->
-
     <script>
         function MyETH() {
             const web3 = new Web3(new Web3.providers.HttpProvider("http://yeonkyun.kro.kr:7545"));
@@ -131,8 +123,6 @@
             if (`{{user_eth_addr}}`) MyETH();
         });
     </script>
-    <!-- JavaScript -->
-    <script src="java.js"></script>
     <script>
         // JavaScript to handle price range slider
         const priceRange = document.getElementById('priceRange');
