@@ -24,7 +24,7 @@ CREATE TABLE trans (
     item_id INT,
     trans_status BOOLEAN,
     trans_date DATETIME,
-    FOREIGN KEY (seller_id) REFERENCES users(id),
+    FOREIGN KEY (seller_id) REFERENCES users(id),   
     FOREIGN KEY (buyer_id) REFERENCES users(id),
     FOREIGN KEY (item_id) REFERENCES nft_item(id)
 );

@@ -2,13 +2,15 @@ const queries = {
   // Users 테이블 쿼리
   createUser: `
     INSERT INTO users (id, pw, name, nickname, eth_addr, phn, createAt)
-    VALUES (?, ?, ?, ?, ?, ?, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'))
+    VALUES (?, ?, ?, ?, ?, ?, NOW())
   `,
   getUserById: `
-    SELECT * FROM users WHERE id = ?
+    SELECT id, pw, name, nickname, eth_addr, phn, DATE_FORMAT(createAt, '%Y-%m-%d %H:%i:%s') as createAt
+    FROM users WHERE id = ?
   `,
   getAllUser: `
-    SELECT * FROM users
+    SELECT id, pw, name, nickname, eth_addr, phn, DATE_FORMAT(createAt, '%Y-%m-%d %H:%i:%s') as createAt
+    FROM users
   `,
   updateUser: `
     UPDATE users
@@ -20,7 +22,7 @@ const queries = {
   `,
   createAdminUser: `
     INSERT INTO users (id, pw, name, nickname, eth_addr, phn, createAt, type)
-    VALUES (?, ?, ?, ?, ?, ?, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'), 'admin')
+    VALUES (?, ?, ?, ?, ?, ?, NOW(), 'admin')
   `,
   updateUserToAdmin: `
     UPDATE users SET type = 'admin' WHERE id = ?
@@ -29,13 +31,15 @@ const queries = {
   // NFT Item 테이블 쿼리
   createNftItem: `
     INSERT INTO nft_item (seller_id, name, contents, price, createAt)
-    VALUES (?, ?, ?, ?, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'))
+    VALUES (?, ?, ?, ?, NOW())
   `,
   getNftItemById: `
-    SELECT * FROM nft_item WHERE id = ?
+    SELECT id, seller_id, name, contents, price, DATE_FORMAT(createAt, '%Y-%m-%d %H:%i:%s') as createAt
+    FROM nft_item WHERE id = ?
   `,
   getAllNftItem: `
-    SELECT * FROM nft_item
+    SELECT id, seller_id, name, contents, price, DATE_FORMAT(createAt, '%Y-%m-%d %H:%i:%s') as createAt
+    FROM nft_item
   `,
   updateNftItem: `
     UPDATE nft_item
@@ -49,13 +53,15 @@ const queries = {
   // Transaction 테이블 쿼리
   createTransaction: `
     INSERT INTO trans (seller_id, buyer_id, item_id, status, createAt)
-    VALUES (?, ?, ?, ?, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'))
+    VALUES (?, ?, ?, ?, NOW())
   `,
   getAllTransaction: `
-    SELECT * FROM trans
+    SELECT id, seller_id, buyer_id, item_id, status, DATE_FORMAT(createAt, '%Y-%m-%d %H:%i:%s') as createAt
+    FROM trans
   `,
   getTransactionById: `
-    SELECT * FROM trans WHERE id = ?
+    SELECT id, seller_id, buyer_id, item_id, status, DATE_FORMAT(createAt, '%Y-%m-%d %H:%i:%s') as createAt
+    FROM trans WHERE id = ?
   `,
   updateTransaction: `
     UPDATE trans
@@ -68,18 +74,32 @@ const queries = {
 
   // 추가적인 복잡한 쿼리
   getUserTransactions: `
-    SELECT t.*, ni.name as item_name, ni.price
+    SELECT t.*, ni.name as item_name, ni.price, DATE_FORMAT(t.createAt, '%Y-%m-%d %H:%i:%s') as createAt
     FROM trans t
     JOIN nft_item ni ON t.item_id = ni.id
     WHERE t.seller_id = ? OR t.buyer_id = ?
   `,
   getActiveNftItems: `
-    SELECT ni.*, u.nickname as owner_nickname
+    SELECT ni.*, u.nickname as owner_nickname, DATE_FORMAT(ni.createAt, '%Y-%m-%d %H:%i:%s') as createAt
     FROM nft_item ni
     LEFT JOIN trans t ON ni.id = t.item_id
     LEFT JOIN users u ON ni.seller_id = u.id
     WHERE t.status = true OR t.status IS NULL
     ORDER BY ni.createAt DESC
+  `,
+  getTransChart: `
+    SELECT 
+        DATE_FORMAT(DATE(MIN(createAt)), '%Y-%m-%d') as date,
+        SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as success_count,
+        SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) as fail_count
+    FROM 
+        trans
+    WHERE 
+        createAt >= DATE_SUB(CURDATE(), INTERVAL 11 MONTH)
+    GROUP BY 
+        DATE(createAt)
+    ORDER BY 
+        DATE(createAt);
   `
 };
 

@@ -212,6 +212,58 @@ app.get('/itemdetail', async (req, res) => {
     }
 });
 
+app.post('/buynow', async (req, res) => {
+    // 로그인한 사용자의 정보는 세션에서 가져올 수 있습니다
+    const buyer_id = req.user ? req.user.id : null;
+    console.log('Logged in user:', req.user);
+    // 요청 본문에서 필요한 데이터 추출
+    const { seller_id, item_id, amountInEth } = req.body;
+    
+    // 필수 데이터가 모두 있는지 확인
+    if (!seller_id || !item_id || !amountInEth) {
+        return res.status(400).send('Missing required fields');
+    }
+
+    try {
+        // 1. 데이터베이스에서 판매자의 주소와 아이템의 가격 조회
+        const sellerResult = await queryDatabase('SELECT eth_addr FROM users WHERE id = ?', [seller_id]);
+        const itemResult = await queryDatabase('SELECT price FROM nft_item WHERE id = ?', [item_id]);
+        const buyerResult = await queryDatabase('SELECT eth_addr FROM users WHERE id = ?', [buyer_id]);
+
+        if (sellerResult.length === 0 || itemResult.length === 0) {
+            return res.status(404).send('Seller or item not found');
+        }
+
+        const sellerAddress = sellerResult[0].eth_addr;
+        const buyerAddress = buyerResult[0].eth_addr;
+        const itemPrice = itemResult[0].price;
+
+        // 현재 날짜 및 시간
+        const now = new Date();
+        const transDate = now.toISOString().slice(0, 19).replace('T', ' '); // DATETIME 형식으로 변환
+
+        // 2. 트랜잭션 정보를 데이터베이스에 저장
+        await queryDatabase('INSERT INTO trans (seller_id, buyer_id, item_id, status, createAt) VALUES (?, ?, ?, ?, ?)', 
+                            [seller_id, buyer_id, item_id, true, transDate]);
+
+        // 클라이언트에 전달할 데이터
+        const data = {
+            buyerAddress,
+            sellerAddress,
+            itemPrice
+        };
+
+        // 성공적으로 처리된 경우
+        res.render('payment', { data });
+    } catch (e) {
+        // 에러 발생 시 처리
+        console.log('Transaction Error:', e);
+        res.status(500).send('Transaction failed');
+    }
+});
+
+
+
 //myinfo page
 app.get('/myinfo', async (req, res) => {
     try {
