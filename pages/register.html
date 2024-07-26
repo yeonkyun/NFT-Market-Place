@@ -12,6 +12,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content-wrap {
+            flex: 1;
+        }
+
+        .end-text {
+            background-color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
         .signup-section {
             display: flex;
             flex-direction: column;
@@ -21,7 +44,7 @@
 
         .signup-form {
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             background: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -29,10 +52,18 @@
             margin-top: 20px;
             margin-left: auto;
             margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .form-group {
             margin-bottom: 15px;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
         .form-group label {
@@ -47,70 +78,65 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
-        .register-btn {
-            display: inline-block;
-            width: 100%;
-            padding: 10px;
-            background: #007bff;
-            color: #fff;
-            text-align: center;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .register-btn:hover {
-            background: #0056b3;
-        }
-
-        .banner-img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
     </style>
 </head>
 
 <body>
-    <header>
-        <a href="/" class="logo"><img src="image/logo.png" alt="Logo"></a>
-    </header>
+    <div class="page-container"> <!-- 이 줄을 추가 -->
+        <header>
+            <a href="/" class="logo"><img src="images/logo.png" alt="Logo"></a>
+            <div class="nav-iocon">
+                <a href="#"><i class='bx bx-search'></i></a>
+                <a href="/login"><i class='bx bx-user'></i></a>
+                <a href="#"><i class='bx bx-cart'></i></a>
+                <div class="bx bx-menu" id="menu-icon"></div>
+            </div>
+        </header>
 
-    <section class="signup-section">
-        <img src="images/banner-3.png" alt="Banner" class="banner-img">
-        <div class="signup-form">
-            <h2>회원가입</h2>
-            <form class="register-body" action="/registerimpl" method="post">
-                <div class="form-group">
-                    <label for="id">ID</label>
-                    <input type="text" id="id" name="id" required>
+        <div class="content-wrap"> <!-- 이 줄을 추가 -->
+            <section class="signup-section">
+                <!-- <img src="images/banner-3.png" alt="Banner" class="banner-img"> -->
+                <div class="signup-form">
+                    <h2>회원가입</h2>
+                    <br>
+                    <form class="register-body" action="/registerimpl" method="post">
+                        <div class="form-group">
+                            <label for="id">ID</label>
+                            <input type="text" id="id" name="id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pw">Password</label>
+                            <input type="password" id="pw" name="pw" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nickname">Nickname</label>
+                            <input type="text" id="nickname" name="nickname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eth_addr">Ether Address</label>
+                            <input type="text" id="eth_addr" name="eth_addr" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phn">Phone Number</label>
+                            <input type="text" id="phn" name="phn" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary"
+                            style="margin-bottom: 20px; float: right">Register</button>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <label for="pw">Password</label>
-                    <input type="password" id="pw" name="pw" required>
-                </div>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="nickname">Nickname</label>
-                    <input type="text" id="nickname" name="nickname" required>
-                </div>
-                <div class="form-group">
-                    <label for="eth_addr">Ether Address</label>
-                    <input type="text" id="eth_addr" name="eth_addr" required>
-                </div>
-                <div class="form-group">
-                    <label for="phn">Phone Number</label>
-                    <input type="text" id="phn" name="phn" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="margin-bottom: 20px; float: right">회원가입</button>
-            </form>
-        </div>
-    </section>
+            </section>
+        </div> <!-- 이 줄을 추가 -->
+
+        <footer>
+            <div class="end-text">
+                <p>Copyright @2024. All Rights Reserved. Designed By Saidul Islam.</p>
+            </div>
+        </footer>
+    </div> <!-- 이 줄을 추가 -->
 
     <!-- JavaScript -->
     <script>

@@ -69,7 +69,7 @@ app.use((req, res, next) => {
     res.locals.user_id = req.user ? req.user.id : null;
     res.locals.user_name = req.user ? req.user.name : null;
     res.locals.user_nickname = req.user ? req.user.nickname : null;
-    res.locals.user_rth_addr = req.user ? req.user.eth_addr : null;
+    res.locals.user_eth_addr = req.user ? req.user.eth_addr : null;
     res.locals.user_type = req.user ? req.user.type : null;
     next();
 });
@@ -164,10 +164,33 @@ app.get('/login', (req, res) => {
 })
 
 // 로그인 라우트
-app.post('/login', passport.authenticate('local', {
-    successRedirect: '/', //로그인 후 이동
-    failureRedirect: '/loginfail'
-}))
+// app.post('/login', passport.authenticate('local', {
+//     successRedirect: '/', //로그인 후 이동
+//     failureRedirect: '/loginfail'
+// }))
+
+// 로그인 라우트
+app.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.redirect('/loginfail');
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            // 로그인 성공 시 사용자 타입에 따라 리다이렉션
+            if (user.type === 'admin' || user.type === 'manager') {
+                return res.redirect('/administrator');
+            }
+            return res.redirect('/');
+        });
+    })(req, res, next);
+});
+
 
 //로그아웃
 app.get('/logout', (req, res) => {

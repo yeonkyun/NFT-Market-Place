@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Info - Ecommerce Website</title>
-  <!-- css link -->
   <link rel="stylesheet" href="/css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +14,70 @@
     integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <style>
+    .info-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 20px;
+    }
+
+    .info-container {
+      width: 100%;
+      max-width: 600px;
+      /* Increased from 800px to 1000px */
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      width: 100%;
+      max-width: 900px; 
+      /* Increased from 800px to 1000px */
+    }
+
+    .form-group label {
+      margin-bottom: 15px;
+      /* Increase this value for more spacing */
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      /* Add this to increase space below input */
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1000px;
+      /* Increased from 800px to 1000px */
+      margin-top: 20px;
+    }
+
+    .button-group .btn {
+      width: 100%;
+      max-width: 200px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 
 <body>
@@ -44,19 +107,20 @@
         </div>
         <div class="form-group">
           <label for="acc">Account</label>
-          <input type="text" value="{{user.acc}}" name="acc" required>
+          <input type="text" value="{{user_eth_addr}}" name="acc" required>
         </div>
         <div class="form-group">
           <label for="phn">Phone Number</label>
           <input type="text" value="{{user.phn}}" id="phn" name="phn" required>
         </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-      </form>
-
-      <!-- 삭제 폼 -->
-      <form method="post" action="/deleteimpl" style="margin-top: 10px;">
-        <input type="hidden" name="id" value="{{user.id}}">
-        <button type="submit" class="btn btn-danger">Delete</button>
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">Update</button>
+          <!-- 삭제 폼 -->
+          <form method="post" action="/deleteimpl">
+            <input type="hidden" name="id" value="{{user.id}}">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
       </form>
     </div>
   </section>
