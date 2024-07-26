@@ -320,15 +320,6 @@ header.sticky {
     transform: scale(1.3);
 }
 
-<<<<<<< HEAD
-=======
-.end-text {
-    background-color: white;
-    text-align: center;
-    padding: 20px;
-}
-
->>>>>>> 1202f7dd9983fd9a460bcf580dce3a49e0eeab50
 .end-text p {
     color: black;
     text-transform: capitalize;
@@ -464,13 +455,8 @@ header.sticky {
 /* shopping */
 
 .shop-banner {
-<<<<<<< HEAD
     background: linear-gradient(to bottom, #ffffff, #ffffff);
     padding: 40px 0;
-=======
-    background: linear-gradient(to bottom, #e5e5e5, #ffffff);
-    padding: 50px 0;
->>>>>>> 1202f7dd9983fd9a460bcf580dce3a49e0eeab50
     color: black;
     text-align: center;
 }
@@ -484,10 +470,7 @@ header.sticky {
 }
 
 .banner-text p {
-<<<<<<< HEAD
     font-family: 'EF_jejudoldam', sans-serif;
-=======
->>>>>>> 1202f7dd9983fd9a460bcf580dce3a49e0eeab50
     color: #ee1c4e;
     font-size: 18px;
 }
@@ -562,7 +545,6 @@ header.sticky {
     margin-bottom: 10px;
 }
 
-<<<<<<< HEAD
 .product-info {
     padding: 10px;
     text-align: center;
@@ -573,8 +555,6 @@ header.sticky {
     align-items: center; /* 수평 가운데 정렬 */
 }
 
-=======
->>>>>>> 1202f7dd9983fd9a460bcf580dce3a49e0eeab50
 .product-info .btn {
     background-color: #ee1c4e;
     color: #fff;
@@ -583,19 +563,12 @@ header.sticky {
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s;
-<<<<<<< HEAD
     margin-top: 10px !important; /* important 속성 사용 */
 }
 
 
 .product-info .btn:hover {
     /* 구매 버튼 커서 색상 바뀜 */
-=======
-    margin-top: 10px;
-}
-
-.product-info .btn:hover { /* 구매 버튼 커서 색상 바뀜 */
->>>>>>> 1202f7dd9983fd9a460bcf580dce3a49e0eeab50
     background-color: #d41e5a;
 }
 
