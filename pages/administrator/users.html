@@ -110,7 +110,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/administrator/users">
                             <i class="typcn typcn-user-outline menu-icon"></i>
-                            <span class="menu-title">유저 정보 관리</span>
+                            <span class="menu-title">사용자 정보 관리</span>
                             <i class="menu-arrow"></i>
                         </a>
                     </li>
@@ -151,11 +151,12 @@
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">유저 정보 목록</h4>
+                                    <h4 class="card-title">사용자 정보 목록</h4>
                                     <div class="table-responsive">
                                         <table class="table table-hover text-center">
                                             <thead>
                                                 <tr>
+                                                    <th><input type="checkbox" id="selectAll"></th>
                                                     <th>아이디</th>
                                                     <th>이름</th>
                                                     <th>닉네임</th>
@@ -168,6 +169,7 @@
                                             <tbody>
                                                 {% for user in users %}
                                                 <tr>
+                                                    <td><input type="checkbox" class="checkbox"></td>
                                                     <td>{{ user.id }}</td>
                                                     <td>{{ user.name }}</td>
                                                     <td>{{ user.nickname }}</td>
@@ -212,6 +214,12 @@
     <!-- 페이지별 플러그인 JavaScript 파일 (현재 없음) -->
 
     <!-- 사용자 정의 JavaScript -->
+    <script>
+        // Select/Deselect all checkboxes
+        $('#selectAll').click(function() {
+          $(':checkbox.checkbox').prop('checked', this.checked);
+        });
+      </script>
     <script src="../../js/off-canvas.js"></script>
     <script src="../../js/hoverable-collapse.js"></script>
     <script src="../../js/template.js"></script>
