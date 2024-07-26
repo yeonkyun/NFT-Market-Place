@@ -69,7 +69,7 @@ app.use((req, res, next) => {
     res.locals.user_id = req.user ? req.user.id : null;
     res.locals.user_name = req.user ? req.user.name : null;
     res.locals.user_nickname = req.user ? req.user.nickname : null;
-    res.locals.user_rth_addr = req.user ? req.user.eth_addr : null;
+    res.locals.user_eth_addr = req.user ? req.user.eth_addr : null;
     res.locals.user_type = req.user ? req.user.type : null;
     next();
 });
@@ -310,6 +310,29 @@ app.post('/nftitem', upload.single('image'), async (req, res) => {
         console.log('Insert Error');
         console.log(e);
         res.status(500).send('Database error');
+    }
+});
+
+app.get('/api/trans-data', async (req, res) => {
+    try {
+        const [rows] = await queryDatabase(`
+            SELECT 
+                DATE(createAt) as date,
+                SUM(CASE WHEN status = 1 THEN 1 ELSE 0 END) as success_count,
+                SUM(CASE WHEN status = 0 THEN 1 ELSE 0 END) as fail_count
+            FROM 
+                trans
+            WHERE 
+                createAt >= DATE_SUB(CURDATE(), INTERVAL 11 MONTH)
+            GROUP BY 
+                DATE(createAt)
+            ORDER BY 
+                date;
+        `);
+        res.json(rows);
+    } catch (error) {
+        console.error('데이터베이스 쿼리 오류:', error);
+        res.status(500).json({ error: '서버 오류' });
     }
 });
 

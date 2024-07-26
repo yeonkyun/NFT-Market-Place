@@ -10,8 +10,13 @@ const { queryDatabase } = require('../database/dbConnect');
 const sql = require('../database/dbSQL');
 
 // GET /administrator
-router.get('/', (req, res) => {
-    res.render('administrator/index');
+router.get('/', async (req, res) => {
+    try {
+        const chartData = await queryDatabase(sql.getTransChart);
+        res.render('administrator/index', { chartData: JSON.stringify(chartData) });
+    } catch (err) {
+        console.error(err);
+    }
 });
 
 router.get('/users', async (req, res) => {

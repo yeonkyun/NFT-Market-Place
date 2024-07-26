@@ -1,352 +1,128 @@
-$(function() {
+// chart.js
+$(function () {
   /* ChartJS
    * -------
    * Data and config for chartjs
    */
   'use strict';
-  var data = {
-    labels: ["2013", "2014", "2014", "2015", "2016", "2017"],
-    datasets: [{
-      label: '# of Votes',
-      data: [10, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1,
-      fill: false
-    }]
-  };
-  var multiLineData = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [{
-        label: 'Dataset 1',
-        data: [12, 19, 3, 5, 2, 3],
-        borderColor: [
-          '#587ce4'
-        ],
-        borderWidth: 2,
-        fill: false
-      },
-      {
-        label: 'Dataset 2',
-        data: [5, 23, 7, 12, 42, 23],
-        borderColor: [
-          '#ede190'
-        ],
-        borderWidth: 2,
-        fill: false
-      },
-      {
-        label: 'Dataset 3',
-        data: [15, 10, 21, 32, 12, 33],
-        borderColor: [
-          '#f44252'
-        ],
-        borderWidth: 2,
-        fill: false
-      }
-    ]
-  };
-  var options = {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    },
-    legend: {
-      display: false
-    },
-    elements: {
-      point: {
-        radius: 0
-      }
-    }
-
-  };
-  var doughnutPieData = {
-    datasets: [{
-      data: [30, 40, 30],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.5)',
-        'rgba(54, 162, 235, 0.5)',
-        'rgba(255, 206, 86, 0.5)',
-        'rgba(75, 192, 192, 0.5)',
-        'rgba(153, 102, 255, 0.5)',
-        'rgba(255, 159, 64, 0.5)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-    }],
-
-    // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: [
-      'Pink',
-      'Blue',
-      'Yellow',
-    ]
-  };
-  var doughnutPieOptions = {
-    responsive: true,
-    animation: {
-      animateScale: true,
-      animateRotate: true
-    }
-  };
-  var areaData = {
-    labels: ["2013", "2014", "2015", "2016", "2017"],
-    datasets: [{
-      label: '# 거래 성공 수',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1,
-      fill: true, // 3: no fill
-    }]
-  };
-
-  var areaOptions = {
-    plugins: {
-      filler: {
-        propagate: true
-      }
-    }
-  }
-
-  var multiAreaData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-    datasets: [{
-        label: 'Facebook',
-        data: [8, 11, 13, 15, 12, 13, 16, 15, 13, 19, 11, 14],
-        borderColor: ['rgba(255, 99, 132, 0.5)'],
-        backgroundColor: ['rgba(255, 99, 132, 0.5)'],
+  if (chartData.length > 0) {
+    var data = {
+      labels: chartData.map(item => item.date),
+      datasets: [{
+        label: '거래 성공',
+        data: chartData.map(item => item.success_count),
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderWidth: 1,
         fill: true
       },
       {
-        label: 'Twitter',
-        data: [7, 17, 12, 16, 14, 18, 16, 12, 15, 11, 13, 9],
-        borderColor: ['rgba(54, 162, 235, 0.5)'],
-        backgroundColor: ['rgba(54, 162, 235, 0.5)'],
+        label: '거래 실패',
+        data: chartData.map(item => item.fail_count),
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
         borderWidth: 1,
         fill: true
-      },
-      {
-        label: 'Linkedin',
-        data: [6, 14, 16, 20, 12, 18, 15, 12, 17, 19, 15, 11],
-        borderColor: ['rgba(255, 206, 86, 0.5)'],
-        backgroundColor: ['rgba(255, 206, 86, 0.5)'],
-        borderWidth: 1,
-        fill: true
-      }
-    ]
-  };
-
-  var multiAreaOptions = {
-    plugins: {
-      filler: {
-        propagate: true
-      }
-    },
-    elements: {
-      point: {
-        radius: 0
-      }
-    },
-    scales: {
-      xAxes: [{
-        gridLines: {
-          display: false
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          display: false
-        }
       }]
-    }
-  }
+    };
 
-  var scatterChartData = {
-    datasets: [{
-        label: 'First Dataset',
-        data: [{
-            x: -10,
-            y: 0
-          },
-          {
-            x: 0,
-            y: 3
-          },
-          {
-            x: -25,
-            y: 5
-          },
-          {
-            x: 40,
-            y: 5
-          }
-        ],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255,99,132,1)'
-        ],
-        borderWidth: 1
+    var options = {
+      plugins: {
+        filler: {
+          propagate: true
+        }
       },
-      {
-        label: 'Second Dataset',
-        data: [{
-            x: 10,
-            y: 5
-          },
-          {
-            x: 20,
-            y: -30
-          },
-          {
-            x: -25,
-            y: 15
-          },
-          {
-            x: -10,
-            y: 5
-          }
-        ],
-        backgroundColor: [
-          'rgba(54, 162, 235, 0.2)',
-        ],
-        borderColor: [
-          'rgba(54, 162, 235, 1)',
-        ],
-        borderWidth: 1
-      }
-    ]
-  }
+      // scales: {
+      //   xAxes: [{
+      //     gridLines: {
+      //       display: false
+      //     }
+      //   }],
+      //   yAxes: [{
+      //     gridLines: {
+      //       display: false
+      //     }
+      //   }]
+      // }
+    };
 
-  var scatterChartOptions = {
-    scales: {
-      xAxes: [{
-        type: 'linear',
-        position: 'bottom'
-      }]
+    if ($("#areachart-multi").length) {
+      var multiAreaCanvas = $("#areachart-multi").get(0).getContext("2d");
+      var multiAreaChart = new Chart(multiAreaCanvas, {
+        type: 'line',
+        data: data,
+        options: options
+      });
     }
-  }
-  // Get context with jQuery - using jQuery's .get() method.
-  if ($("#barChart").length) {
-    var barChartCanvas = $("#barChart").get(0).getContext("2d");
-    // This will get the first returned node in the jQuery collection.
-    var barChart = new Chart(barChartCanvas, {
-      type: 'bar',
-      data: data,
-      options: options
-    });
+
+    // 데이터 계산 로직 추가
+    function getTodayDate() {
+      var today = new Date();
+      var year = today.getFullYear();
+      var month = today.getMonth() + 1; // 월은 0부터 시작하므로 +1 필요
+      var day = today.getDate();
+      return year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+    }
+
+    function calculateTransactions(data) {
+      var todayDate = getTodayDate();
+      var todaySuccessed = 0;
+      var todayFailed = 0;
+      var totalSuccessed = 0;
+      var totalFailed = 0;
+
+      data.forEach(function (transaction) {
+        totalSuccessed += parseInt(transaction.success_count);
+        totalFailed += parseInt(transaction.fail_count);
+        if (transaction.date === todayDate) {
+          todaySuccessed += parseInt(transaction.success_count);
+          todayFailed += parseInt(transaction.fail_count);
+        }
+      });
+
+      return {
+        todaySuccessed: todaySuccessed,
+        todayFailed: todayFailed,
+        totalSuccessed: totalSuccessed,
+        totalFailed: totalFailed
+      };
+    }
+
+    var results = calculateTransactions(chartData);
+    $('#today-successed').text(results.todaySuccessed);
+    $('#today-failed').text(results.todayFailed);
+    $('#total-successed').text(results.totalSuccessed);
+    $('#total-failed').text(results.totalFailed);
+
+  } else {
+    console.error('거래 데이터를 찾을 수 없거나 비어 있습니다.');
   }
 
-  if ($("#lineChart").length) {
-    var lineChartCanvas = $("#lineChart").get(0).getContext("2d");
-    var lineChart = new Chart(lineChartCanvas, {
-      type: 'line',
-      data: data,
-      options: options
-    });
+  // 페이지 로드 시 모든 .today-date 요소에 오늘 날짜를 표시
+  var todayDateElements = document.querySelectorAll('.today-date');
+  var todayDate = getTodayDate();
+  todayDateElements.forEach(function (element) {
+    element.textContent = todayDate;
+  });
+
+  // 현재 날짜를 가져오는 함수
+  function getTodayDate() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth() + 1;
+    var day = today.getDate();
+
+    // 날짜를 YYYY-MM-DD 형식으로 포맷
+    var formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day);
+    return formattedDate;
   }
 
-  if ($("#linechart-multi").length) {
-    var multiLineCanvas = $("#linechart-multi").get(0).getContext("2d");
-    var lineChart = new Chart(multiLineCanvas, {
-      type: 'line',
-      data: multiLineData,
-      options: options
+  // 페이지 로드 시 모든 .today-date 요소에 오늘 날짜를 표시
+  document.addEventListener('DOMContentLoaded', function () {
+    var todayDateElements = document.querySelectorAll('.today-date');
+    var todayDate = getTodayDate();
+    todayDateElements.forEach(function (element) {
+      element.textContent = todayDate;
     });
-  }
-
-  if ($("#areachart-multi").length) {
-    var multiAreaCanvas = $("#areachart-multi").get(0).getContext("2d");
-    var multiAreaChart = new Chart(multiAreaCanvas, {
-      type: 'line',
-      data: multiAreaData,
-      options: multiAreaOptions
-    });
-  }
-
-  if ($("#doughnutChart").length) {
-    var doughnutChartCanvas = $("#doughnutChart").get(0).getContext("2d");
-    var doughnutChart = new Chart(doughnutChartCanvas, {
-      type: 'doughnut',
-      data: doughnutPieData,
-      options: doughnutPieOptions
-    });
-  }
-
-  if ($("#pieChart").length) {
-    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-    var pieChart = new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: doughnutPieData,
-      options: doughnutPieOptions
-    });
-  }
-
-  if ($("#areaChart").length) {
-    var areaChartCanvas = $("#areaChart").get(0).getContext("2d");
-    var areaChart = new Chart(areaChartCanvas, {
-      type: 'line',
-      data: areaData,
-      options: areaOptions
-    });
-  }
-
-  if ($("#scatterChart").length) {
-    var scatterChartCanvas = $("#scatterChart").get(0).getContext("2d");
-    var scatterChart = new Chart(scatterChartCanvas, {
-      type: 'scatter',
-      data: scatterChartData,
-      options: scatterChartOptions
-    });
-  }
-
-  if ($("#browserTrafficChart").length) {
-    var doughnutChartCanvas = $("#browserTrafficChart").get(0).getContext("2d");
-    var doughnutChart = new Chart(doughnutChartCanvas, {
-      type: 'doughnut',
-      data: browserTrafficData,
-      options: doughnutPieOptions
-    });
-  }
+  });
 });

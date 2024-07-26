@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    {% if user_type == 'admin' or user_type == 'manager' %}
     <div class="container-scroller">
         <!-- 네비게이션 바 -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
@@ -28,6 +29,11 @@
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
                 <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item  d-none d-lg-flex">
+                        <a class="nav-link" href="/">
+                            메인 페이지
+                        </a>
+                    </li>
                     <li class="nav-item  d-none d-lg-flex">
                         <a class="nav-link active" href="#">
                             관리 시스템
@@ -216,22 +222,18 @@
     <!-- 사용자 정의 JavaScript -->
     <script>
         // Select/Deselect all checkboxes
-        $('#selectAll').click(function() {
-          $(':checkbox.checkbox').prop('checked', this.checked);
+        $('#selectAll').click(function () {
+            $(':checkbox.checkbox').prop('checked', this.checked);
         });
-      </script>
-    <script src="../../js/off-canvas.js"></script>
-    <script src="../../js/hoverable-collapse.js"></script>
-    <script src="../../js/template.js"></script>
-    <script src="../../js/settings.js"></script>
-    <script src="../../js/todolist.js"></script>
+    </script>
 
     <!-- 페이지별 플러그인 JavaScript -->
-    <script src="../../vendors/progressbar.js/progressbar.min.js"></script>
-    <script src="../../vendors/chart.js/Chart.min.js"></script>
 
     <!-- 페이지별 사용자 정의 JavaScript -->
-    <script src="../../js/dashboard.js"></script>
+
+    {% else %}
+        {% include 'error-404.html' %}
+    {% endif %}
 </body>
 
 </html>
