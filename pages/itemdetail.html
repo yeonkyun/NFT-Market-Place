@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -19,72 +20,103 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .content-wrap {
+            flex: 1;
+        }
+
+        .end-text {
+            background-color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
 </head>
+
 <body>
-    <header>
-        <a href="/" class="logo"><img src="images/logo.png" alt="Logo"></a>
+    <div class="page-container"> <!-- 이 줄을 추가 -->
+        <header>
+            <a href="/" class="logo"><img src="images/logo.png" alt="Logo"></a>
 
-        <ul class="navmenu">
-            <li><a href="/">home</a></li>
-            <li><a href="/shopping">shop</a></li>
-            <li><a href="/addProduct">Add products</a></li>
-        </ul>
+            <ul class="navmenu">
+                <li><a href="/">home</a></li>
+            </ul>
 
-        <div class="nav-iocon">
-            <a href="#"><i class='bx bx-search'></i></a>
-            <a href="/login"><i class='bx bx-user'></i></a>
-            <a href="#"><i class='bx bx-cart'></i></a>
-            <div class="bx bx-menu" id="menu-icon"></div>
-        </div>
-    </header>
-
-    <!-- Product Detail Section -->
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="row gx-4 gx-lg-5 align-items-center">
-                <!-- Product Image -->
-                <div class="col-md-6">
-                    <img class="card-img-top mb-5 mb-md-0" src="images/{{ iteminfo.contents }}" alt="{{ iteminfo.name }}" />
-                </div>
-                <!-- Product Info -->
-                <div class="col-md-6">
-                    <h2 class="display-5 fw-bolder">{{ iteminfo.name }}</h2>
-                    <div class = "text">
-                        <h5>판매가</h5>
-                    </div>
-                    <div class="fs-5 mb-5">
-                        <span id="priceInKRW">{{ iteminfo.price }} KRW</span>
-                    </div>
-                    <div class="fs-5 mb-5">
-                        <span id="priceInETH"></span>
-                    </div>
-                    <p class="lead">{{ iteminfo.description }}</p>
-                    <p class="small mb-1">등록일: <span id="regDate" data-reg-date="{{ iteminfo.reg_date }}">{{ iteminfo.reg_date }}</span></p>
-                    <div class="d-flex">
-                        <input class="form-control text-center me-3" id="count" type="number" value="1" min="1" max="{{ iteminfo.quantity }}" style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="simulatePayment()">
-                            <i class="bi-cart-fill me-1"></i>
-                            Buy Now
-                        </button>
-                    </div>
-                    <p id="paymentStatus" class="mt-3"></p>
-                </div>
+            <div class="nav-iocon">
+                <a href="#"><i class='bx bx-search'></i></a>
+                <a href="/login"><i class='bx bx-user'></i></a>
+                <a href="#"><i class='bx bx-cart'></i></a>
+                <div class="bx bx-menu" id="menu-icon"></div>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2024</p>
-        </div>
-    </footer>
+        <div class="content-wrap"> <!-- 이 줄을 추가 -->
+            <!-- Product Detail Section -->
+            <section class="py-5">
+                <div class="container px-4 px-lg-5 my-5">
+                    <div class="row gx-4 gx-lg-5 align-items-center">
+                        <!-- Product Image -->
+                        <div class="col-md-6">
+                            <img class="card-img-top mb-5 mb-md-0" src="images/{{ iteminfo.contents }}"
+                                alt="{{ iteminfo.name }}" />
+                        </div>
+                        <!-- Product Info -->
+                        <div class="col-md-6">
+                            <h2 class="display-5 fw-bolder">{{ iteminfo.name }}</h2>
+                            <div class="text">
+                                <h5>판매가</h5>
+                            </div>
+                            <div class="fs-5 mb-5">
+                                <span id="priceInKRW">{{ iteminfo.price }} KRW</span>
+                            </div>
+                            <div class="fs-5 mb-5">
+                                <span id="priceInETH"></span>
+                            </div>
+                            <p class="lead">{{ iteminfo.description }}</p>
+                            <p class="small mb-1">등록일: <span id="regDate" data-reg-date="{{ iteminfo.reg_date }}">{{
+                                    iteminfo.reg_date }}</span></p>
+                            <div class="d-flex">
+                                <input class="form-control text-center me-3" id="count" type="number" value="1" min="1"
+                                    max="{{ iteminfo.quantity }}" style="max-width: 3rem" />
+                                <button class="btn btn-outline-dark flex-shrink-0" type="button"
+                                    onclick="simulatePayment()">
+                                    <i class="bi-cart-fill me-1"></i>
+                                    Buy Now
+                                </button>
+                            </div>
+                            <p id="paymentStatus" class="mt-3"></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div> <!-- 이 줄을 추가 -->
+
+        <!-- Footer -->
+        <footer>
+            <div class="end-text">
+                <p>Copyright @2024. All Rights Reserved. Designed By Saidul Islam.</p>
+            </div>
+        </footer>
+    </div> <!-- 이 줄을 추가 -->
 
     <!-- Bootstrap core JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS for date formatting and payment simulation -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             formatDate();
             calculateTotalPrice();
 
@@ -96,10 +128,10 @@
             var regDate = regDateElement.dataset.regDate;
             var date = new Date(regDate);
             var formattedDate = date.getFullYear() + '년 ' +
-                                (date.getMonth() + 1) + '월 ' +
-                                date.getDate() + '일 ' +
-                                date.getHours() + '시 ' +
-                                date.getMinutes() + '분';
+                (date.getMonth() + 1) + '월 ' +
+                date.getDate() + '일 ' +
+                date.getHours() + '시 ' +
+                date.getMinutes() + '분';
             regDateElement.textContent = formattedDate;
         }
 
@@ -109,7 +141,7 @@
             var krwToEthRate = 0.000022; // 1 KRW = 0.000022 ETH (예시 값, 실제 환율로 교체 필요)
             var totalPriceInKRW = priceInKRW * count;
             var totalPriceInETH = (totalPriceInKRW * krwToEthRate).toFixed(6); // ETH로 환산
-            
+
             document.getElementById('priceInETH').textContent = totalPriceInETH + ' ETH';
             document.getElementById('totalPrice').textContent = totalPriceInETH + ' ETH';
         }
@@ -120,10 +152,10 @@
             var krwToEthRate = 0.000022; // 1 KRW = 0.000022 ETH (예시 값, 실제 환율로 교체 필요)
             var totalPriceInKRW = priceInKRW * count;
             var totalPriceInETH = (totalPriceInKRW * krwToEthRate).toFixed(6); // ETH로 환산
-            
+
             // 결제 시뮬레이션 메시지
             document.getElementById('paymentStatus').textContent = `Processing your payment of ${totalPriceInETH} ETH...`;
-            
+
             // 결제 처리 지연 시뮬레이션
             setTimeout(() => {
                 document.getElementById('paymentStatus').textContent = `Payment of ${totalPriceInETH} ETH was successful! Thank you for your purchase.`;
@@ -131,4 +163,5 @@
         }
     </script>
 </body>
+
 </html>

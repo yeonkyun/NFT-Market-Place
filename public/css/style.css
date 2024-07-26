@@ -22,6 +22,7 @@
     text-decoration: none;
 }
 
+
 header {
     position: fixed;
     width: 100%;
@@ -319,14 +320,8 @@ header.sticky {
     transform: scale(1.3);
 }
 
-.end-text {
-    background-color: #758694;
-    text-align: center;
-    padding: 20px;
-}
-
 .end-text p {
-    color: #ffffff;
+    color: black;
     text-transform: capitalize;
 }
 
@@ -460,22 +455,23 @@ header.sticky {
 /* shopping */
 
 .shop-banner {
-    background-color: #f4f4f4;
-    padding: 50px 10%;
+    background: linear-gradient(to bottom, #ffffff, #ffffff);
+    padding: 40px 0;
+    color: black;
     text-align: center;
 }
 
 .banner-text h1 {
     font-family: 'EF_jejudoldam', sans-serif;
     margin-top: 100px;
-    color: #333;
+    color: #000;
     font-size: 36px;
     margin-bottom: 10px;
 }
 
 .banner-text p {
     font-family: 'EF_jejudoldam', sans-serif;
-    color: #777;
+    color: #ee1c4e;
     font-size: 18px;
 }
 
@@ -537,11 +533,6 @@ header.sticky {
     object-fit: cover;
 }
 
-.product-info {
-    padding: 15px;
-    text-align: center;
-}
-
 .product-info h4 {
     color: #333;
     font-size: 18px;
@@ -554,26 +545,33 @@ header.sticky {
     margin-bottom: 10px;
 }
 
-.product-info .rating {
-    margin-bottom: 10px;
-}
-
-.product-info .rating i {
-    color: #ff8c00;
-    font-size: 16px;
+.product-info {
+    padding: 10px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* 아이템을 아래쪽으로 정렬 */
+    align-items: center;
+    /* 수평 가운데 정렬 */
 }
 
 .product-info .btn {
     background-color: #ee1c4e;
     color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 10px 10px;
+    border-radius: 20px;
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s;
+    margin-top: 10px !important;
+    /* important 속성 사용 */
 }
 
+
 .product-info .btn:hover {
+    /* 구매 버튼 커서 색상 바뀜 */
     background-color: #d41e5a;
 }
 
@@ -671,28 +669,55 @@ header.sticky {
 }
 
 .register-body .form-group button:hover {
-    color: #d41e5a; 
+    color: #d41e5a;
 }
 
 /* 유저 프로필 css */
+.addProduct {
+    font-family: 'EF_jejudoldam', sans-serif;
+}
+
 .profile-products {
     display: flex;
     justify-content: space-between;
     padding: 2%;
-    margin-left: 10%; /* 왼쪽 마진 추가 */
+    margin-left: 10%;
+    /* 왼쪽 마진 추가 */
+    overflow: hidden;
+    /* 넘치는 내용 숨기기 */
 }
 
 .profile-section {
-    flex: 0.3; 
+    flex: 0 0 250px;
+    /* 고정된 너비 설정 */
+    height: 50vh;
+    /* 고정된 높이 설정 */
+    /* overflow-y: auto; 내용이 넘칠 경우 스크롤 가능 */
     padding: 20px;
     background-color: #f4f4f4;
     border-radius: 10px;
     margin-right: 40px;
+    margin-top: 55px;
+    text-align: center;
+    /* 내용의 텍스트를 가운데 정렬 */
+}
+
+.eth-address {
+    word-wrap: break-word;
+    /* 긴 문자열을 칸 너비에 맞게 줄바꿈 */
+    overflow-wrap: break-word;
+    /* 긴 문자열을 칸 너비에 맞게 줄바꿈 */
+    word-break: break-all;
+    /* 필요한 경우 단어를 중간에서 줄바꿈 */
 }
 
 .added-products {
-    flex: 2;
+    flex: 1;
+    overflow-y: auto;
+    height: 100vh;
+    padding-right: 20px;
 }
+
 
 
 .profile-section h2 {
@@ -701,8 +726,8 @@ header.sticky {
 
 .added-products h2 {
     margin-top: 0;
-    text-align: center;
-    margin-right: 79%;
+    margin-right: 50%;
+    text-align: right;
 }
 
 .product-grid {
@@ -710,9 +735,12 @@ header.sticky {
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 10px;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    margin-left: 0; /* 왼쪽 마진 제거 */
-    padding-left: 0; /* 왼쪽 패딩 제거 */
+    justify-content: flex-start;
+    /* 왼쪽 정렬 */
+    margin-left: 0;
+    /* 왼쪽 마진 제거 */
+    padding-left: 0;
+    /* 왼쪽 패딩 제거 */
 }
 
 .product-card {
@@ -720,35 +748,109 @@ header.sticky {
     border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
-    width: 220px;  /* 상품 카드의 가로 크기를 220px로 설정 */
-    height: 260px;  /* 상품 카드의 세로 크기를 260px로 증가 */
+    width: 220px;
+    /* 상품 카드의 가로 크기를 220px로 설정 */
+    height: 260px;
+    /* 상품 카드의 세로 크기를 260px로 증가 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 10px;  /* 각 상품 카드 사이의 간격 */
+    margin: 10px;
+    /* 각 상품 카드 사이의 간격 */
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    /* 버튼이 아래쪽에 위치하도록 설정 */
 }
 
 
 
 .product-card img {
-    width: 100%;  /* 이미지가 카드 너비에 맞게 조정 */
-    height: 100px;  /* 이미지의 높이를 100px로 설정 */
-    object-fit: cover;  /* 이미지가 비율을 유지하며 영역을 채움 */
-    flex-shrink: 0;  /* 이미지가 축소되지 않도록 설정 */
+    width: 100%;
+    /* 이미지가 카드 너비에 맞게 조정 */
+    height: 100px;
+    /* 이미지의 높이를 100px로 설정 */
+    object-fit: cover;
+    /* 이미지가 비율을 유지하며 영역을 채움 */
+    flex-shrink: 0;
+    /* 이미지가 축소되지 않도록 설정 */
 }
 
 
 .product-info {
     padding: 10px;
     text-align: center;
-    flex-grow: 1;  /* 남은 공간을 모두 채우도록 설정 */
+    flex-grow: 1;
+    /* 남은 공간을 모두 채우도록 설정 */
 }
 
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #ee1c4e;
     color: #fff;
+    padding: 10px 30px;
+    border-radius: 20px;
     text-decoration: none;
-    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    border: none;
+}
+
+.btn:hover {
+    /* 구매 버튼 커서 색상 바뀜 */
+    background-color: #d41e5a;
+}
+
+/* item detail */
+.card-img-top {
+    width: 100%;
+    /* 부모 요소의 너비에 맞추기 */
+    height: auto;
+    /* 비율을 유지하며 크기를 조정 */
+    max-height: 600px;
+    /* 원하는 최대 높이로 설정, 필요에 따라 조정 */
+    object-fit: contain;
+    /* 이미지 비율을 유지하며 전체 크기를 조정 */
+}
+
+
+/* footer고정을 위한 css */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrap {
+    flex: 1;
+}
+
+.end-text {
+    background-color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+
+/* 유저 로그인,회원가입 디자인 */
+.btnUser {
+    background-color: #fff;
+    color: black;
+    padding: 10px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 30px;
+    border: none;
+}
+
+.btnUser:hover {
+    background-color: gainsboro;
+    color: black;
 }

@@ -164,10 +164,33 @@ app.get('/login', (req, res) => {
 })
 
 // 로그인 라우트
-app.post('/login', passport.authenticate('local', {
-    successRedirect: '/', //로그인 후 이동
-    failureRedirect: '/loginfail'
-}))
+// app.post('/login', passport.authenticate('local', {
+//     successRedirect: '/', //로그인 후 이동
+//     failureRedirect: '/loginfail'
+// }))
+
+// 로그인 라우트
+app.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.redirect('/loginfail');
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            // 로그인 성공 시 사용자 타입에 따라 리다이렉션
+            if (user.type === 'admin' || user.type === 'manager') {
+                return res.redirect('/administrator');
+            }
+            return res.redirect('/');
+        });
+    })(req, res, next);
+});
+
 
 //로그아웃
 app.get('/logout', (req, res) => {
