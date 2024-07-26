@@ -107,7 +107,7 @@
         </div>
         <div class="form-group">
           <label for="acc">Account</label>
-          <input type="text" value="{{user_eth_addr}}" name="acc" required>
+          <input type="text" value="{{user_eth_addr}}" name="eth_addr" required>
         </div>
         <div class="form-group">
           <label for="phn">Phone Number</label>
@@ -117,7 +117,6 @@
           <button type="submit" class="btn btn-primary">Update</button>
           <!-- 삭제 폼 -->
           <form method="post" action="/deleteimpl">
-            <input type="hidden" name="id" value="{{user.id}}">
             <button type="submit" class="btn btn-danger">Delete</button>
           </form>
         </div>
