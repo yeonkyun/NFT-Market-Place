@@ -270,10 +270,10 @@ app.post('/updateimpl', async (req, res) => {
     let pwd = req.body.pwd;
     let name = req.body.name;
     let nickname = req.body.nickname;
-    let acc = req.body.acc;
+    let acc = req.body.eth_addr;
     let phn = req.body.phn;
 
-    let values = [pwd, name, nickname, acc, phn, id];
+    let values = [pwd, name, nickname, eth_addr, phn, id];
 
     try {
         // 업데이트 쿼리 실행
